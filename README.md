@@ -27,7 +27,11 @@ Site for cybersecuritychecker.be: a cybersecurity quickscan for Flemish SMEs, ov
 
 The result page can show a form asking for name, email, phone and company, with a consent checkbox. It is switched off until `lead.endpoint` in `assets/quiz-config.js` holds the URL that receives the submission. Until then the button on the result page links to `cta.url`.
 
-On submit the page sends one JSON POST with the contact fields, the score, level, priorities and every quiz answer. Fixed extra fields, such as an access key for a form service, go in `lead.extraFields`.
+On submit the page sends one POST with a JSON body: the contact fields, the score, level, priorities and every quiz answer.
+
+Leads go to the Google Sheet "Cybersecurity comparison leads", tab "Leads". The sheet receives them through the Apps Script in `tools/leads-apps-script.gs`, deployed from the sheet as a web app (run as the owner, access for anyone). The web app URL goes in `lead.endpoint`. After changing the script, publish a new version under Deploy > Manage deployments, otherwise the old code keeps running.
+
+The column order in the sheet and the `KEYS` list in the script must match. For another receiver, such as a form service, set `lead.contentType` to `application/json` and put fixed extra fields in `lead.extraFields`.
 
 ## Open points
 

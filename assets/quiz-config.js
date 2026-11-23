@@ -55,6 +55,8 @@ window.QUIZ_CONFIG = {
    */
   lead: {
     endpoint: "",
+    /* Google Apps Script aanvaardt geen "application/json" vanuit de browser, wel platte tekst met JSON erin. */
+    contentType: "text/plain;charset=utf-8",
     extraFields: {},
     title: "Laat je vrijblijvend contacteren",
     intro: "Laat je gegevens achter. We nemen contact op en brengen je in contact met maximaal drie dienstverleners die bij je verbeterpunten passen.",
