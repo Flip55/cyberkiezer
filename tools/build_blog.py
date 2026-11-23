@@ -6,6 +6,10 @@ Add an article by appending to ARTICLES and running the script again.
 """
 import html
 import pathlib
+import sys
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from layout import BRAND, foot, head  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "blog"
@@ -210,7 +214,7 @@ ARTICLES = [
 </ul>
 <h2>Eerst beveiligen, dan verzekeren</h2>
 <p>Een verzekering voorkomt geen aanval. Ze beperkt de financiële schade achteraf. Breng dus eerst je basismaatregelen op orde. Dat verlaagt je risico en maakt het ook makkelijker om een polis te krijgen.</p>
-<p class="source">Dit artikel geeft algemene informatie en is geen verzekeringsadvies. Cybersecuritychecker vergelijkt geen verzekeringen. Voor een polis op maat ga je naar een erkende verzekeringsmakelaar.</p>
+<p class="source">Dit artikel geeft algemene informatie en is geen verzekeringsadvies. Cybersecurity Checker vergelijkt geen verzekeringen. Voor een polis op maat ga je naar een erkende verzekeringsmakelaar.</p>
 """,
     },
     {
@@ -272,41 +276,12 @@ ARTICLES = [
     },
 ]
 
-HEAD = """<!DOCTYPE html>
-<html lang="nl-BE">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{title}</title>
-<meta name="description" content="{description}">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/blog.css">
-</head>
-<body>
-<div class="demo-note">Demo-versie. De artikels zijn testinhoud en zijn nog niet nagelezen door een specialist.</div>
-<div class="wrap">
-<header class="top">
-  <a class="brand" href="../index.html"><span></span>Cybersecuritychecker</a>
-  <nav><a href="../index.html">Doe de check</a><a href="index.html">Blog</a><a href="../index.html#steun">VLAIO-steun</a></nav>
-</header>
-<main>
-"""
+NOTE = "Demo-versie. De artikels zijn testinhoud en zijn nog niet nagelezen door een specialist."
 
-FOOT = """</main>
-<footer>
-  <p>Cybersecuritychecker is een demo. De artikels geven algemene informatie en vervangen geen audit of advies op maat.</p>
-</footer>
-</div>
-</body>
-</html>
-"""
-
-CTA = """<aside class="cta">
+CTA = """<aside class="closing">
   <h2>Hoe staat jouw kmo ervoor?</h2>
-  <p>Beantwoord tien vragen en zie je score en je grootste gaten.</p>
-  <a class="btn primary" href="../index.html">Doe de check</a>
+  <p>Beantwoord 14 korte vragen en zie je score op 10 en je drie belangrijkste verbeterpunten.</p>
+  <a class="btn primary" href="../index.html#quiz">Start de gratis check</a>
 </aside>
 """
 
@@ -323,7 +298,7 @@ def build() -> None:
         esc_sum = html.escape(a["summary"])
         mins = minutes(a["body"])
         page = (
-            HEAD.format(title=esc_title + " | Cybersecuritychecker", description=esc_sum)
+            head(a["title"] + " | " + BRAND, a["summary"], "../", "blog", NOTE)
             + '<article class="post">\n'
             + '<p class="back"><a href="index.html">Alle artikels</a></p>\n'
             + f"<h1>{esc_title}</h1>\n"
@@ -332,7 +307,7 @@ def build() -> None:
             + a["body"].strip()
             + "\n</article>\n"
             + CTA
-            + FOOT
+            + foot("../")
         )
         (OUT / f'{a["slug"]}.html').write_text(page, encoding="utf-8")
         items.append(
@@ -340,17 +315,14 @@ def build() -> None:
             f"<p>{esc_sum}</p><p class=\"meta\">{mins} minuten lezen</p></li>"
         )
     index = (
-        HEAD.format(
-            title="Blog | Cybersecuritychecker",
-            description="Praktische artikels over cybersecurity voor kmo's in Vlaanderen.",
-        )
-        + '<div class="blog-head"><h1>Cybersecurity voor kmo\'s, zonder jargon</h1>'
-        + "<p>Praktische uitleg over de maatregelen, de regels en de steun.</p></div>\n"
+        head("Blog | " + BRAND, "Praktische artikels over cybersecurity voor kmo's in Vlaanderen.", "../", "blog", NOTE)
+        + '<div class="page-head"><h1>Cybersecurity voor kmo\'s, zonder jargon</h1>'
+        + '<p class="lead">Praktische uitleg over de maatregelen, de regels en de steun.</p></div>\n'
         + '<ul class="posts">\n'
         + "\n".join(items)
         + "\n</ul>\n"
         + CTA
-        + FOOT
+        + foot("../")
     )
     (OUT / "index.html").write_text(index, encoding="utf-8")
     print(f"Built {len(ARTICLES)} articles in {OUT}")

@@ -3,234 +3,68 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cybersecuritychecker: cybersecurity-check voor kmo's</title>
-<meta name="description" content="Vertel in een kort gesprek welke tools je bedrijf gebruikt. Je krijgt een score, je drie grootste gaten en een schatting van de VLAIO-steun.">
+<title>Cybersecurity Checker: ken je cyberscore in 3 minuten</title>
+<meta name="description" content="Gratis en onafhankelijke cybersecurity-check voor kmo's. 14 korte vragen, een score op 10 en je 3 belangrijkste verbeterpunten.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ink:#14254A; --paper:#F6F8FB; --white:#FFFFFF; --line:#D3DAE6;
-  --amber:#F2A900; --ok:#1E7D4F; --gap:#C2371D; --muted:#55627D;
-  --display:"Bricolage Grotesque",system-ui,sans-serif;
-  --body:"Public Sans",system-ui,sans-serif;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
-h1,h2,h3{font-family:var(--display);line-height:1.08;margin:0 0 .5em;letter-spacing:-.01em}
-h1{font-size:clamp(2.3rem,5.2vw,4rem);font-weight:700}
-h2{font-size:clamp(1.7rem,3.2vw,2.5rem);font-weight:700}
-h3{font-size:1.2rem;font-weight:700}
-p{margin:0 0 1em;max-width:62ch}
-a{color:var(--ink)}
-.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
-header.top{display:flex;justify-content:space-between;align-items:center;padding:20px 0}
-.brand{font-family:var(--display);font-weight:700;font-size:1.35rem;text-decoration:none}
-.brand span{display:inline-block;width:.62em;height:.62em;background:var(--amber);border-radius:50%;margin-right:.35em}
-nav a{margin-left:22px;text-decoration:none;font-weight:600;font-size:.95rem}
-nav a:hover{text-decoration:underline}
-.demo-note{background:var(--ink);color:#fff;font-size:.9rem;padding:8px 0;text-align:center}
-
-.hero{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:start;padding:40px 0 72px}
-.hero p.lead{font-size:1.15rem;color:var(--muted)}
-.facts{list-style:none;padding:0;margin:28px 0 0;border-top:2px solid var(--ink)}
-.facts li{padding:12px 0;border-bottom:1px solid var(--line);display:flex;gap:14px}
-.facts b{font-family:var(--display);min-width:5.2em}
-
-.chat{background:var(--white);border:2px solid var(--ink);border-radius:18px 18px 18px 4px;box-shadow:8px 8px 0 var(--amber);display:flex;flex-direction:column;height:560px}
-.chat-head{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;font-weight:600}
-.progress{height:6px;width:120px;background:var(--line);border-radius:3px;overflow:hidden}
-.progress i{display:block;height:100%;width:0;background:var(--ink);transition:width .3s}
-.log{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:10px}
-.msg{max-width:86%;padding:10px 14px;border-radius:14px;white-space:pre-line}
-.msg.bot{background:var(--paper);border-bottom-left-radius:3px;align-self:flex-start}
-.msg.me{background:var(--ink);color:#fff;border-bottom-right-radius:3px;align-self:flex-end}
-.answers{padding:12px 18px 18px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:8px}
-button,.btn{font:inherit;font-weight:600;cursor:pointer;border:2px solid var(--ink);background:var(--white);color:var(--ink);padding:9px 16px;border-radius:999px;text-decoration:none;display:inline-block}
-button:hover,.btn:hover{background:var(--ink);color:#fff}
-button.primary,.btn.primary{background:var(--ink);color:#fff}
-button.primary:hover,.btn.primary:hover{background:#0b1730}
-:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
-.answers form{display:flex;gap:8px;width:100%}
-.answers input[type=text]{flex:1;font:inherit;padding:10px 14px;border:2px solid var(--ink);border-radius:999px;min-width:0}
-
-section{padding:72px 0;border-top:1px solid var(--line)}
-.report{display:none}
-.report.show{display:block}
-.attest{background:var(--white);border:2px solid var(--ink);padding:32px;display:grid;grid-template-columns:260px 1fr;gap:40px}
-.score{font-family:var(--display);font-weight:700;font-size:5.5rem;line-height:1}
-.score small{font-size:1.5rem}
-.level{display:inline-block;margin-top:10px;padding:4px 12px;border:2px solid var(--ink);font-weight:600;transform:rotate(-2deg)}
-.rows{list-style:none;margin:0;padding:0}
-.rows li{display:grid;grid-template-columns:1.6em 1fr auto;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
-.dot{width:1em;height:1em;border-radius:50%;margin-top:.3em}
-.s2 .dot{background:var(--ok)} .s1 .dot{background:var(--amber)} .s0 .dot{background:var(--gap)}
-.rows em{font-style:normal;color:var(--muted);font-size:.92rem}
-.rows .tip{grid-column:2/4;color:var(--muted);font-size:.95rem}
-.next{margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:28px}
-.box{background:var(--white);border:1px solid var(--line);padding:24px}
-.box label{display:block;font-weight:600;margin:12px 0 4px}
-.box input[type=text],.box input[type=email]{width:100%;font:inherit;padding:10px 12px;border:2px solid var(--ink)}
-.check{display:flex;gap:10px;align-items:flex-start;margin:14px 0;font-size:.95rem}
-.sent{display:none;margin-top:12px;padding:12px;border-left:4px solid var(--amber);background:var(--paper)}
-
-.controls{display:grid;grid-template-columns:repeat(2,1fr);gap:0 48px;margin-top:24px}
-.controls div{padding:18px 0;border-bottom:1px solid var(--line)}
-.controls p{margin:0;color:var(--muted)}
-.subsidy{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
-.calc{background:var(--ink);color:#fff;padding:28px}
-.calc output{font-family:var(--display);font-size:2.6rem;font-weight:700;display:block}
-.calc input[type=range]{width:100%;accent-color:var(--amber);margin:16px 0}
-.calc .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
-.calc small{color:#c5cee0}
-.source{font-size:.88rem;color:var(--muted)}
-
-.providers{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.providers li{background:var(--white);border:1px solid var(--line);padding:18px 16px;min-height:104px;display:flex;flex-direction:column;justify-content:space-between;gap:10px}
-.providers strong{font-family:var(--display);font-size:1.12rem;line-height:1.15}
-.providers span{font-size:.82rem;color:var(--muted);line-height:1.35}
-.prov-foot{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-top:24px}
-.prov-foot p{margin:0}
-.why{list-style:none;margin:24px 0 0;padding:0;border-top:2px solid var(--ink)}
-.why li{display:grid;grid-template-columns:7.5em 1fr;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);align-items:baseline}
-.why b{font-family:var(--display);font-size:2rem;line-height:1}
-.why small{display:block;color:var(--muted);margin-top:4px}
-.steps{margin:24px 0 0;padding:0;list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
-.steps li{counter-increment:s;border-top:2px solid var(--ink);padding-top:14px}
-.steps li::before{content:counter(s);font-family:var(--display);font-weight:700;font-size:1.6rem;display:block;margin-bottom:6px}
-.steps p{margin:0;color:var(--muted)}
-footer{padding:40px 0 64px;border-top:2px solid var(--ink);font-size:.92rem;color:var(--muted)}
-@media (max-width:860px){
-  .hero,.attest,.next,.subsidy,.controls,.steps{grid-template-columns:1fr}
-  .providers{grid-template-columns:repeat(2,1fr)}
-  .why li{grid-template-columns:1fr;gap:4px}
-  nav{display:none}
-  .chat{height:520px;box-shadow:5px 5px 0 var(--amber)}
-}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.progress i{transition:none}}
-</style>
+<link rel="stylesheet" href="assets/site.css">
 </head>
 <body>
 <div class="demo-note">Demo-versie. Je antwoorden blijven in je browser en worden nergens naartoe gestuurd.</div>
 <div class="wrap">
 <header class="top">
-  <a class="brand" href="#"><span></span>Cybersecuritychecker</a>
-  <nav><a href="#dienstverleners">Dienstverleners</a><a href="blog/index.html">Blog</a><a href="#steun">VLAIO-steun</a><a href="#aanbieders">Voor aanbieders</a></nav>
+  <a class="brand" href="index.html"><span></span>Cybersecurity Checker</a>
+  <nav class="main" aria-label="Hoofdmenu"><a href="it-dienstverleners.html">IT-dienstverleners</a><a href="cyberverzekeraars.html">Cyberverzekeraars</a><a href="blog/index.html">Blog</a><a href="index.html#steun">VLAIO-steun</a><a class="btn primary" href="index.html#quiz">Start de gratis check</a></nav>
 </header>
 
 <main>
-<div class="hero">
-  <div>
-    <h1>Hoe goed is jouw kmo beveiligd?</h1>
-    <p class="lead">Vertel in een kort gesprek welke tools je gebruikt en hoe je IT geregeld is. Je krijgt een score, je grootste gaten en specialisten die ze kunnen dichten.</p>
-    <ul class="facts">
-      <li><b>3 minuten</b><span>Tien vragen, zonder vakjargon.</span></li>
-      <li><b>Neutraal</b><span>De vragen volgen de basismaatregelen van het CyberFundamentals-kader van het Centrum voor Cybersecurity België.</span></li>
-      <li><b>50% steun</b><span>VLAIO betaalt de helft van een verbetertraject voor kmo's in Vlaanderen.</span></li>
-    </ul>
-  </div>
-  <div class="chat" aria-label="Cybersecurity-check">
-    <div class="chat-head"><span>Cybersecurity-check</span><div class="progress" aria-hidden="true"><i id="bar"></i></div></div>
-    <div class="log" id="log" aria-live="polite"></div>
-    <div class="answers" id="answers"></div>
-  </div>
+<div id="quiz" class="quiz">
+  <noscript><h1>Hoe veilig is jouw bedrijf?</h1><p>Zet JavaScript aan in je browser om de check te doen.</p></noscript>
 </div>
 
-<section class="report" id="rapport">
-  <h2>Jouw resultaat</h2>
-  <div class="attest">
-    <div>
-      <div class="score"><span id="score">0</span><small>/100</small></div>
-      <div class="level" id="level"></div>
-      <p class="source" style="margin-top:18px">Indicatie op basis van je eigen antwoorden. Dit is geen officiële CyberFundamentals-beoordeling.</p>
-    </div>
-    <ul class="rows" id="rows"></ul>
-  </div>
-  <div class="next">
-    <div class="box">
-      <h3>Wat kost het om dit op te lossen?</h3>
-      <p id="advice"></p>
-      <a class="btn" href="#steun">Bereken de VLAIO-steun</a>
-    </div>
-    <div class="box">
-      <h3>Ontvang drie voorstellen</h3>
-      <p>We sturen je rapport naar maximaal drie specialisten die bij je sector en je gaten passen. Zij nemen contact met je op.</p>
-      <form id="lead">
-        <label for="n">Naam</label><input id="n" type="text" required autocomplete="name">
-        <label for="e">E-mailadres op het werk</label><input id="e" type="email" required autocomplete="email">
-        <div class="check"><input id="c" type="checkbox" required><label for="c" style="margin:0;font-weight:400">Ik ga akkoord dat mijn rapport en contactgegevens naar maximaal drie specialisten gaan.</label></div>
-        <button class="primary" type="submit">Vraag voorstellen aan</button>
-      </form>
-      <div class="sent" id="sent">Dit is een demo: er is niets verstuurd en niets bewaard. In de echte versie krijg je hier een bevestiging en je rapport per e-mail.</div>
-    </div>
+<ul class="facts">
+  <li><b>3 minuten</b><span>14 korte vragen, zonder vakjargon.</span></li>
+  <li><b>Onafhankelijk</b><span>De vragen volgen de basismaatregelen van het CyberFundamentals-kader van het Centrum voor Cybersecurity België.</span></li>
+  <li><b>Niets te installeren</b><span>Je antwoorden blijven in je browser.</span></li>
+</ul>
+
+<section class="band" id="aanbod">
+  <h2>Wie kan je helpen?</h2>
+  <p>Twee soorten partijen maken het verschil: wie je beveiliging op orde brengt, en wie de schade dekt als het toch misgaat.</p>
+  <div class="cats">
+    <a class="cat" href="it-dienstverleners.html">
+      <h3>IT-dienstverleners</h3>
+      <p>24 IT- en securitybedrijven voor kmo's, waaronder de 19 door VLAIO erkende dienstverleners voor een verbetertraject met 50% steun.</p>
+      <span>Bekijk de IT-dienstverleners</span>
+    </a>
+    <a class="cat" href="cyberverzekeraars.html">
+      <h3>Cyberverzekeraars</h3>
+      <p>Verzekeraars met een cyberpolis voor Belgische ondernemingen, en hoe je er een aanvraagt.</p>
+      <span>Bekijk de cyberverzekeraars</span>
+    </a>
   </div>
 </section>
 
-<section id="dienstverleners">
-  <h2>De 19 erkende cybersecurity-dienstverleners van Vlaanderen</h2>
-  <p>Eén overzicht van de dienstverleners waarmee je een verbetertraject met 50% VLAIO-steun kan starten, van regionale IT-partners tot gespecialiseerde securitybedrijven.</p>
-  <ul class="providers">
-    <li><strong>Apogado</strong><span>Mechelen</span></li>
-    <li><strong>Axians</strong><span>Roeselare, Merelbeke, Asse, Brussel, Herstal</span></li>
-    <li><strong>Cegeka</strong><span>Hasselt, Leuven, Antwerpen, Brussel, Gent</span></li>
-    <li><strong>Cheops</strong><span>Kontich, Zaventem, Gent, Herentals, Turnhout</span></li>
-    <li><strong>Cingulum en CRANIUM</strong><span>Zaventem, Gent, Hasselt</span></li>
-    <li><strong>CONXION</strong><span>Deerlijk, Waregem, Kortrijk, Roeselare, Lokeren</span></li>
-    <li><strong>Cresco</strong><span>Brussel, Zaventem</span></li>
-    <li><strong>Cronos Security</strong><span>11 vestigingen in Vlaanderen en Brussel</span></li>
-    <li><strong>Cyberplan, Jimber, Secamo</strong><span>Brugge, Gent, Antwerpen</span></li>
-    <li><strong>Cyberwise, Alistar</strong><span>Gent, Sint-Niklaas, Westerlo, Zottegem</span></li>
-    <li><strong>Group K</strong><span>Houthalen-Helchteren</span></li>
-    <li><strong>IT1</strong><span>Dendermonde, Gentbrugge, Grimbergen, Berchem</span></li>
-    <li><strong>Netcure</strong><span>Zaventem, Kasterlee</span></li>
-    <li><strong>Refracted Security</strong><span>Lier</span></li>
-    <li><strong>Savaco</strong><span>Kortrijk, Ieper, Gent, Zandhoven, Leuven, Roosdaal</span></li>
-    <li><strong>Serso</strong><span>Lummen</span></li>
-    <li><strong>Sertalink</strong><span>Belsele</span></li>
-    <li><strong>Toreon</strong><span>Antwerpen</span></li>
-    <li><strong>Zerobit, Grant Thornton, Soteria</strong><span>Antwerpen, Brussel, Doornik, Turnhout, Gent, Leuven</span></li>
-  </ul>
-  <div class="prov-foot">
-    <p class="source">Lijst volgens <a href="https://www.vlaio.be/nl/subsidies-financiering/cybersecurity-verbetertrajecten/hoe-start-je-jouw-verbetertraject">VLAIO</a>, geraadpleegd in november 2026. Vestigingen volgens publieke informatie. Deze bedrijven zijn geen partner van Cybersecuritychecker. Alle merknamen zijn eigendom van hun respectieve houders.</p>
-    <p>Staat jouw bedrijf hier nog niet bij? <a href="#aanbieders">Neem contact met ons op</a></p>
-  </div>
-</section>
-
-<section id="werking">
-  <h2>In drie stappen naar de juiste partner</h2>
+<section class="band" id="werking">
+  <h2>In drie stappen naar een veiliger bedrijf</h2>
   <ol class="steps">
-    <li><h3>Doe de check</h3><p>Tien vragen over je bedrijf, je tools en je afspraken. Het duurt drie minuten.</p></li>
-    <li><h3>Lees je rapport</h3><p>Je score, je grootste gaten en wat een verbetertraject na steun ongeveer kost.</p></li>
-    <li><h3>Kies tot drie dienstverleners</h3><p>Zij ontvangen je rapport en nemen contact op met een voorstel op maat.</p></li>
+    <li><h3>Doe de check</h3><p>14 vragen over je bedrijf en je afspraken rond IT. Het duurt drie minuten.</p></li>
+    <li><h3>Lees je resultaat</h3><p>Je score op 10, je score per domein en je drie belangrijkste verbeterpunten.</p></li>
+    <li><h3>Kies wie je helpt</h3><p>Bekijk de IT-dienstverleners en cyberverzekeraars en neem contact op met wie bij je past.</p></li>
   </ol>
 </section>
 
-<section id="waarom">
+<section class="band" id="waarom">
   <h2>Waarom dit nu op je agenda hoort</h2>
   <ul class="why">
     <li><b>45,8%</b><div>van de Vlaamse bedrijven kreeg in 2024 een cyberaanval te verwerken. Bij één op tien was er echte schade.<small>Bron: VLAIO cybersecurity barometer</small></div></li>
     <li><b>588</b><div>cyberincidenten kreeg het Centrum voor Cybersecurity België gemeld tussen januari en september 2026. Dat is meer dan in heel 2025.<small>Bron: The Brussels Times, oktober 2026</small></div></li>
-    <li><b>46,4%</b><div>van de bedrijven gebruikt aanmelden in twee stappen, terwijl volgens het CCB meer dan 80% van de incidenten daarmee te vermijden is.<small>Bron: bevraging CCB, juli 2025</small></div></li>
+    <li><b>46,4%</b><div>van de bedrijven gebruikt tweestapsverificatie, terwijl volgens het CCB meer dan 80% van de incidenten daarmee te vermijden is.<small>Bron: bevraging CCB, juli 2025</small></div></li>
   </ul>
 </section>
 
-<section id="wat">
-  <h2>Wat we nakijken</h2>
-  <p>Acht basismaatregelen die bij de meeste aanvallen op kleine bedrijven het verschil maken.</p>
-  <div class="controls">
-    <div><h3>Back-ups</h3><p>Heb je een kopie buiten je kantoor, en heb je ooit getest of je ze kan terugzetten?</p></div>
-    <div><h3>Aanmelden in twee stappen</h3><p>Een gestolen wachtwoord is dan niet genoeg om in je mailbox te raken.</p></div>
-    <div><h3>Updates</h3><p>Toestellen en software die automatisch bijgewerkt worden, sluiten bekende lekken.</p></div>
-    <div><h3>Antivirus en firewall</h3><p>Bescherming op elke computer en aan de rand van je netwerk.</p></div>
-    <div><h3>Wachtwoorden</h3><p>Een wachtwoordbeheerder voorkomt hergebruik en briefjes op het scherm.</p></div>
-    <div><h3>Beheerdersrechten</h3><p>Wie dagelijks als beheerder werkt, geeft malware dezelfde rechten.</p></div>
-    <div><h3>Opleiding</h3><p>Medewerkers die phishing herkennen, stoppen de meeste aanvallen voor ze beginnen.</p></div>
-    <div><h3>Noodplan</h3><p>Weten wie je belt en wat je uitschakelt als het toch misgaat.</p></div>
-  </div>
-</section>
-
-<section id="steun">
+<section class="band" id="steun">
   <div class="subsidy">
     <div>
       <h2>VLAIO betaalt de helft</h2>
@@ -243,139 +77,45 @@ footer{padding:40px 0 64px;border-top:2px solid var(--ink);font-size:.92rem;colo
       <output id="total">€ 15.000</output>
       <input id="cost" type="range" min="7100" max="39900" step="100" value="15000">
       <div class="split">
-        <div><small>VLAIO betaalt</small><output id="vlaio" style="font-size:1.6rem">€ 7.500</output></div>
-        <div><small>Jij betaalt</small><output id="own" style="font-size:1.6rem">€ 7.500</output></div>
+        <div><small>VLAIO betaalt</small><output id="vlaio">€ 7.500</output></div>
+        <div><small>Jij betaalt</small><output id="own">€ 7.500</output></div>
       </div>
     </div>
   </div>
 </section>
 
-<section id="aanbieders">
+<section class="band" id="aanbieders">
   <h2>Voor aanbieders</h2>
-  <p>Ben je erkend dienstverlener voor verbetertrajecten, IT-partner of beveiligingsspecialist? Je ontvangt aanvragen met een ingevuld rapport: sector, grootte, gebruikte tools en de gaten die de ondernemer zelf aangaf. Je betaalt per aanvraag die bij je regio en specialisatie past.</p>
-  <a class="btn" href="mailto:info@example.com?subject=Cybersecuritychecker%20partner">Word partner</a>
+  <p>Ben je IT-dienstverlener, securityspecialist of verzekeringsmakelaar en wil je in het overzicht staan of je vermelding aanpassen? Laat het ons weten.</p>
+  <a class="btn" href="mailto:info@example.com?subject=Cybersecurity%20Checker%20aanbieder">Neem contact met ons op</a>
 </section>
 </main>
 
-<footer>
-  <p>Cybersecuritychecker is een demo. Naam, partners en contactadres zijn voorlopig. De check geeft een indicatie en vervangt geen audit of advies op maat.</p>
+<footer class="site">
+  <nav aria-label="Voettekst">
+    <a href="index.html#quiz">Start de check</a>
+    <a href="it-dienstverleners.html">IT-dienstverleners</a>
+    <a href="cyberverzekeraars.html">Cyberverzekeraars</a>
+    <a href="blog/index.html">Blog</a>
+    <a href="index.html#aanbieders">Voor aanbieders</a>
+  </nav>
+  <p>Cybersecurity Checker is een demo. De inhoud geeft algemene informatie en vervangt geen audit of advies op maat.</p>
 </footer>
 </div>
 
+<script src="assets/quiz-config.js"></script>
+<script src="assets/quiz.js"></script>
 <script>
-const fmt = n => '€ ' + Math.round(n).toLocaleString('nl-BE');
-const $ = id => document.getElementById(id);
-
-// Controls scored 0 (missing), 1 (partly), 2 (in place)
-const controls = [
-  {key:'backup', name:'Back-ups', q:'Maak je back-ups van je bedrijfsgegevens?', a:[['Ja, ook buiten kantoor en getest',2],['Ja, maar nooit getest',1],['Nee of geen idee',0]], tip:'Zet een automatische back-up op buiten je kantoor en test één keer per kwartaal of terugzetten lukt.'},
-  {key:'mfa', name:'Aanmelden in twee stappen', q:'Moeten medewerkers een extra code of app gebruiken om aan te melden bij e-mail?', a:[['Ja, iedereen',2],['Enkel sommigen',1],['Nee',0]], tip:'Schakel aanmelden in twee stappen in voor alle mailboxen. In Microsoft 365 en Google Workspace is dat inbegrepen.'},
-  {key:'updates', name:'Updates', q:'Worden computers en software automatisch bijgewerkt?', a:[['Ja, automatisch',2],['Af en toe, met de hand',1],['Nee of geen idee',0]], tip:'Zet automatische updates aan op alle toestellen en vervang software die geen updates meer krijgt.'},
-  {key:'av', name:'Antivirus en firewall', q:'Staat er antivirus op elke computer en heb je een firewall?', a:[['Ja, beide',2],['Eén van de twee',1],['Nee of geen idee',0]], tip:'Installeer beheerde antivirus op elk toestel en laat de firewall van je router nakijken.'},
-  {key:'pw', name:'Wachtwoorden', q:'Hoe bewaren jullie wachtwoorden?', a:[['In een wachtwoordbeheerder',2],['Ieder voor zich',1],['In een gedeeld bestand of op papier',0]], tip:'Kies één wachtwoordbeheerder voor het hele team, zodat elk account een uniek wachtwoord krijgt.'},
-  {key:'admin', name:'Beheerdersrechten', q:'Werken medewerkers dagelijks met een account dat alles mag installeren?', a:[['Nee, enkel IT heeft die rechten',2],['Sommigen wel',1],['Ja, iedereen',0]], tip:'Geef iedereen een gewoon account voor dagelijks werk en hou beheerdersaccounts apart.'},
-  {key:'train', name:'Opleiding', q:'Krijgen medewerkers uitleg of een test over phishing?', a:[['Ja, elk jaar',2],['Ooit eens',1],['Nooit',0]], tip:'Plan elk jaar een korte opleiding en stuur af en toe een oefenmail.'},
-  {key:'plan', name:'Noodplan', q:'Weet je wie je belt en wat je doet als je gehackt wordt?', a:[['Ja, dat staat op papier',2],['Ongeveer',1],['Nee',0]], tip:'Schrijf op één pagina wie je belt, wat je uitschakelt en waar de back-ups staan.'}
-];
-
-// Tools recognised in the free-text answer
-const tools = [
-  [/365|microsoft|outlook|office|teams/i,'Microsoft 365'],
-  [/google|gmail|workspace/i,'Google Workspace'],
-  [/bitdefender|eset|defender|norton|kaspersky|sophos|mcafee|trend/i,'antivirus', 'av'],
-  [/veeam|acronis|synology|backblaze|back-?up/i,'een back-upoplossing', 'backup'],
-  [/1password|bitwarden|lastpass|keeper|dashlane/i,'een wachtwoordbeheerder', 'pw'],
-  [/authenticator|mfa|2fa|twee stappen|yubikey/i,'aanmelden in twee stappen', 'mfa'],
-  [/exact|yuki|odoo|teamleader|billit|octopus/i,'boekhoud- of bedrijfssoftware']
-];
-
-const state = {sector:'', size:'', it:'', found:[], scores:{}};
-let step = 0;
-const total = controls.length + 4;
-
-function say(text, who='bot'){
-  const d = document.createElement('div');
-  d.className = 'msg ' + who; d.textContent = text;
-  $('log').appendChild(d); $('log').scrollTop = $('log').scrollHeight;
-}
-function progress(){ $('bar').style.width = Math.min(100, step/total*100) + '%'; }
-function choices(list, onPick){
-  const box = $('answers'); box.innerHTML = '';
-  list.forEach(([label, value]) => {
-    const b = document.createElement('button'); b.type = 'button'; b.textContent = label;
-    b.onclick = () => { say(label,'me'); box.innerHTML = ''; step++; progress(); onPick(value, label); };
-    box.appendChild(b);
-  });
-  box.querySelector('button').focus({preventScroll:true});
-}
-function freeText(placeholder, onSend){
-  const box = $('answers');
-  box.innerHTML = '<form><input type="text" aria-label="Je antwoord" placeholder="'+placeholder+'"><button class="primary">Verstuur</button></form>';
-  const f = box.querySelector('form'), i = f.querySelector('input');
-  f.onsubmit = e => { e.preventDefault(); const v = i.value.trim() || 'Geen idee'; say(v,'me'); box.innerHTML=''; step++; progress(); onSend(v); };
-}
-
-function start(){
-  say('Dag! Ik stel je tien korte vragen over de IT van je bedrijf. Daarna zie je meteen je score.');
-  say('In welke sector ben je actief?');
-  choices([['Bouw of industrie','Bouw of industrie'],['Handel of horeca','Handel of horeca'],['Diensten of vrij beroep','Diensten of vrij beroep'],['Zorg','Zorg'],['Andere','Andere']], v => { state.sector = v; askSize(); });
-}
-function askSize(){
-  say('Met hoeveel mensen werken jullie?');
-  choices([['1 tot 5','1-5'],['6 tot 20','6-20'],['21 tot 50','21-50'],['Meer dan 50','50+']], v => { state.size = v; askIT(); });
-}
-function askIT(){
-  say('Wie beheert jullie IT?');
-  choices([['Een externe IT-partner','extern'],['Iemand intern','intern'],['Niemand echt','niemand']], v => { state.it = v; askTools(); });
-}
-function askTools(){
-  say('Welke tools gebruiken jullie? Typ gewoon wat je kent, bijvoorbeeld: "Microsoft 365, Bitdefender, back-up op een Synology".');
-  freeText('Onze tools zijn...', text => {
-    tools.forEach(([re, label, key]) => { if (re.test(text)) { state.found.push(label); if (key) state.scores[key] = 1; } });
-    if (state.found.length) say('Genoteerd: ' + state.found.join(', ') + '. Ik vraag nog even door over hoe je ze gebruikt.');
-    else say('Geen probleem, ik overloop de belangrijkste punten met je.');
-    askControl(0);
-  });
-}
-function askControl(i){
-  if (i >= controls.length) return finish();
-  const c = controls[i];
-  say(c.q);
-  choices(c.a, v => { state.scores[c.key] = v; askControl(i+1); });
-}
-function finish(){
-  let sum = 0; controls.forEach(c => sum += state.scores[c.key] || 0);
-  const score = Math.round(sum / (controls.length*2) * 100);
-  const gaps = controls.filter(c => (state.scores[c.key]||0) < 2).sort((a,b) => state.scores[a.key]-state.scores[b.key]);
-  $('score').textContent = score;
-  $('level').textContent = score >= 80 ? 'Basis op orde' : score >= 50 ? 'Halfweg' : 'Kwetsbaar';
-  $('rows').innerHTML = '';
-  controls.forEach(c => {
-    const s = state.scores[c.key] || 0;
-    const li = document.createElement('li'); li.className = 's'+s;
-    li.innerHTML = '<span class="dot"></span><strong></strong><em></em>' + (s<2 ? '<span class="tip"></span>' : '');
-    li.querySelector('strong').textContent = c.name;
-    li.querySelector('em').textContent = ['Ontbreekt','Gedeeltelijk','In orde'][s];
-    if (s<2) li.querySelector('.tip').textContent = c.tip;
-    $('rows').appendChild(li);
-  });
-  const pack = gaps.length <= 2 ? 'START' : gaps.length <= 5 ? 'MEDIUM' : 'PLUS';
-  $('advice').textContent = gaps.length
-    ? 'Je hebt ' + gaps.length + ' punten om aan te werken. Voor een bedrijf met ' + state.size + ' medewerkers past een verbetertraject van het type ' + pack + ' wellicht het best. Een erkende dienstverlener bevestigt dat na een intake.'
-    : 'Alle acht basismaatregelen zijn in orde. Een erkende dienstverlener kan nagaan of je klaar bent voor een hoger niveau.';
-  say(gaps.length
-    ? 'Klaar. Je score is ' + score + ' op 100. Je grootste gaten: ' + gaps.slice(0,3).map(g => g.name.toLowerCase()).join(', ') + '. Je volledige rapport staat hieronder.'
-    : 'Klaar. Je score is ' + score + ' op 100. Je volledige rapport staat hieronder.');
-  const box = $('answers');
-  box.innerHTML = '<a class="btn primary" href="#rapport">Bekijk je rapport</a><button type="button" id="again">Opnieuw beginnen</button>';
-  $('again').onclick = () => location.reload();
-  $('rapport').classList.add('show');
-  step = total; progress();
-}
-
-$('lead').onsubmit = e => { e.preventDefault(); $('sent').style.display = 'block'; };
-$('cost').oninput = e => { const v = +e.target.value; $('total').textContent = fmt(v); $('vlaio').textContent = fmt(v/2); $('own').textContent = fmt(v/2); };
-start();
+(function () {
+  var fmt = function (n) { return "€ " + Math.round(n).toLocaleString("nl-BE"); };
+  var cost = document.getElementById("cost");
+  cost.oninput = function () {
+    var v = +cost.value;
+    document.getElementById("total").textContent = fmt(v);
+    document.getElementById("vlaio").textContent = fmt(v / 2);
+    document.getElementById("own").textContent = fmt(v / 2);
+  };
+})();
 </script>
 </body>
 </html>
