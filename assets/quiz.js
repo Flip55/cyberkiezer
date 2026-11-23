@@ -89,7 +89,9 @@
   /* ---------- Schermen ---------- */
 
   function renderStart() {
-    var box = el("div", "quiz-start");
+    var outer = el("div", "quiz-start");
+    var box = el("div", "quiz-start-text");
+    outer.appendChild(box);
     box.appendChild(el("h1", null, cfg.start.title));
     box.appendChild(el("p", "lead", cfg.start.subtitle));
     var hasProgress = Object.keys(state.answers).length > 0;
@@ -102,7 +104,20 @@
     };
     box.appendChild(b);
     box.appendChild(el("p", "quiz-note", cfg.start.note));
-    return box;
+    if (cfg.start.image) {
+      var im = cfg.start.image;
+      var img = el("img", "quiz-start-img");
+      img.src = im.src;
+      if (im.srcSmall) {
+        img.srcset = im.srcSmall + " 800w, " + im.src + " " + im.width + "w";
+        img.sizes = "(min-width: 900px) 520px, 100vw";
+      }
+      img.alt = im.alt;
+      img.width = im.width;
+      img.height = im.height;
+      outer.appendChild(img);
+    }
+    return outer;
   }
 
   function renderQuestion() {

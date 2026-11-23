@@ -14,7 +14,14 @@ window.QUIZ_CONFIG = {
     subtitle: "Gratis en onafhankelijk. Je krijgt een score op 10 en je 3 belangrijkste verbeterpunten.",
     button: "Start de gratis check",
     note: "14 korte vragen · geen IT-kennis nodig",
-    resume: "Ga verder waar je gebleven was"
+    resume: "Ga verder waar je gebleven was",
+    image: {
+      src: "assets/hero.jpg",
+      srcSmall: "assets/hero-800.jpg",
+      alt: "Twee collega's overleggen aan een laptop in een kleurrijk kmo-kantoor",
+      width: 1400,
+      height: 1183
+    }
   },
 
   labels: {
