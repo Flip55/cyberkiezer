@@ -99,7 +99,7 @@ section.band{padding:64px 0;border-top:1px solid var(--line)}
 
 /* Home sections */
 .facts{list-style:none;padding:0;margin:0;display:grid;gap:0}
-.facts li{padding:14px 0;border-bottom:1px solid var(--line);display:grid;gap:2px}
+.facts li{padding:14px 0;border-bottom:1px solid var(--line);display:grid;gap:2px;align-content:start}
 .facts b{font-family:var(--display)}
 .cats{display:grid;gap:16px;margin-top:24px}
 .cat{display:block;background:var(--white);border:1px solid var(--line);border-radius:16px;padding:24px;text-decoration:none}
