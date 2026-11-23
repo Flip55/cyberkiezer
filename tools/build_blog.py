@@ -276,8 +276,6 @@ ARTICLES = [
     },
 ]
 
-NOTE = "Demo-versie. De artikels zijn testinhoud en zijn nog niet nagelezen door een specialist."
-
 CTA = """<aside class="closing">
   <h2>Hoe staat jouw kmo ervoor?</h2>
   <p>Beantwoord 14 korte vragen en zie je score op 10 en je drie belangrijkste verbeterpunten.</p>
@@ -298,7 +296,7 @@ def build() -> None:
         esc_sum = html.escape(a["summary"])
         mins = minutes(a["body"])
         page = (
-            head(a["title"] + " | " + BRAND, a["summary"], "../", "blog", NOTE)
+            head(a["title"] + " | " + BRAND, a["summary"], "../", "blog")
             + '<article class="post">\n'
             + '<p class="back"><a href="index.html">Alle artikels</a></p>\n'
             + f"<h1>{esc_title}</h1>\n"
@@ -315,7 +313,7 @@ def build() -> None:
             f"<p>{esc_sum}</p><p class=\"meta\">{mins} minuten lezen</p></li>"
         )
     index = (
-        head("Blog | " + BRAND, "Praktische artikels over cybersecurity voor kmo's in Vlaanderen.", "../", "blog", NOTE)
+        head("Blog | " + BRAND, "Praktische artikels over cybersecurity voor kmo's in Vlaanderen.", "../", "blog")
         + '<div class="page-head"><h1>Cybersecurity voor kmo\'s, zonder jargon</h1>'
         + '<p class="lead">Praktische uitleg over de maatregelen, de regels en de steun.</p></div>\n'
         + '<ul class="posts">\n'

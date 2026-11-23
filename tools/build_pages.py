@@ -17,7 +17,6 @@ from layout import BRAND, foot, head  # noqa: E402
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 VLAIO_URL = "https://www.vlaio.be/nl/subsidies-financiering/cybersecurity-verbetertrajecten/hoe-start-je-jouw-verbetertraject"
 VLAIO_POINT = "Door VLAIO erkend voor cybersecurity verbetertrajecten, met 50% steun voor kmo's"
-NOTE = "Demo-versie. De vermelde bedrijven zijn geen partner van deze site. De teksten zijn gebaseerd op publieke informatie en nog niet door de bedrijven bevestigd."
 
 # name, tagline, description, extra points, locations, VLAIO-recognised
 IT_PROVIDERS = [
@@ -158,7 +157,7 @@ def build() -> None:
     it_page = (
         head("IT-dienstverleners voor cybersecurity | " + BRAND,
              "Overzicht van IT- en securitydienstverleners voor kmo's in Vlaanderen, waaronder de door VLAIO erkende dienstverleners.",
-             "", "it", NOTE)
+             "", "it")
         + f"""<div class="page-head">
   <h1>IT- en securitydienstverleners voor kmo's op een rij</h1>
   <p class="lead">Een overzicht van {len(IT_PROVIDERS)} dienstverleners die kmo's helpen met hun beveiliging. {n_vlaio} daarvan zijn door VLAIO erkend voor een verbetertraject met 50% steun.</p>
@@ -179,7 +178,7 @@ def build() -> None:
     ins_page = (
         head("Cyberverzekeraars in België | " + BRAND,
              "Overzicht van verzekeraars met een cyberpolis voor Belgische kmo's. Geen prijsvergelijking en geen advies.",
-             "", "ins", NOTE)
+             "", "ins")
         + f"""<div class="page-head">
   <h1>Cyberverzekeraars voor kmo's op een rij</h1>
   <p class="lead">Een overzicht van verzekeraars met een cyberpolis voor Belgische ondernemingen. De meeste verkopen hun polis via een makelaar.</p>

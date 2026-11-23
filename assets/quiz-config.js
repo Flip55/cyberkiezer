@@ -43,7 +43,32 @@ window.QUIZ_CONFIG = {
 
   cta: {
     label: "Hulp nodig bij deze verbeterpunten?",
-    url: "#"
+    /* Wordt gebruikt zolang lead.endpoint leeg is. */
+    url: "it-dienstverleners.html"
+  },
+
+  /*
+   * Leadformulier op de resultaatpagina.
+   * endpoint: URL die de aanvraag ontvangt als JSON (POST). Zolang dit leeg is,
+   *           wordt het formulier niet getoond en linkt de knop naar cta.url.
+   * extraFields: vaste velden die mee verstuurd worden, bv. de sleutel van je formulierdienst.
+   */
+  lead: {
+    endpoint: "",
+    extraFields: {},
+    title: "Laat je vrijblijvend contacteren",
+    intro: "Laat je gegevens achter. We nemen contact op en brengen je in contact met maximaal drie dienstverleners die bij je verbeterpunten passen.",
+    fields: {
+      name: "Naam",
+      email: "E-mailadres",
+      phone: "Telefoonnummer",
+      company: "Bedrijf"
+    },
+    consent: "Ik ga akkoord dat Cybersecurity Checker mijn gegevens en mijn resultaat gebruikt om mij te contacteren en ze doorgeeft aan maximaal drie dienstverleners.",
+    submit: "Verstuur mijn aanvraag",
+    sending: "Bezig met versturen...",
+    success: "Bedankt. We hebben je aanvraag ontvangen en nemen contact met je op.",
+    error: "Versturen is niet gelukt. Controleer je verbinding en probeer het opnieuw."
   },
 
   standardOptions: [

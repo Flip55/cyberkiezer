@@ -1,6 +1,6 @@
 # Cybersecurity Checker
 
-Demo site for cybersecuritychecker.be: a cybersecurity quickscan for Flemish SMEs, overview pages of providers and a blog. Static files only, served by GitHub Pages.
+Site for cybersecuritychecker.be: a cybersecurity quickscan for Flemish SMEs, overview pages of providers and a blog. Static files only, served by GitHub Pages.
 
 ## Structure
 
@@ -23,9 +23,16 @@ Demo site for cybersecuritychecker.be: a cybersecurity quickscan for Flemish SME
 - Blog: append to `ARTICLES` in `tools/build_blog.py`, then run `python3 tools/build_blog.py`.
 - Navigation: change `NAV` in `tools/layout.py`, rerun both scripts, and update the same links in `index.html`.
 
-## What this demo does not do
+## Lead form
 
-- No form, no database, no login. Quiz answers stay in the visitor's browser.
-- The provider cards are based on public information and the team's own research. The companies listed are not partners and have not confirmed the texts.
+The result page can show a form asking for name, email, phone and company, with a consent checkbox. It is switched off until `lead.endpoint` in `assets/quiz-config.js` holds the URL that receives the submission. Until then the button on the result page links to `cta.url`.
+
+On submit the page sends one JSON POST with the contact fields, the score, level, priorities and every quiz answer. Fixed extra fields, such as an access key for a form service, go in `lead.extraFields`.
+
+## Open points
+
+- No privacy policy page yet. One is needed before the lead form is switched on.
+- The contact address for providers is still `info@example.com`.
+- Provider cards are based on public information and the team's own research. The companies have not confirmed the texts.
 - The insurer page gives no prices, ranking or advice.
-- The blog articles are test content and have not been reviewed by a specialist.
+- The blog articles have not been reviewed by a specialist.

@@ -21,7 +21,6 @@ a{color:var(--ink)}
 .source,.meta{font-size:.9rem;color:var(--muted)}
 
 /* Header */
-.demo-note{background:var(--ink);color:#fff;font-size:.88rem;padding:8px 12px;text-align:center}
 header.top{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 24px;padding:16px 0}
 .brand{font-family:var(--display);font-weight:700;font-size:1.3rem;text-decoration:none;white-space:nowrap}
 .brand span{display:inline-block;width:.62em;height:.62em;background:var(--green);border-radius:50%;margin-right:.35em}
@@ -98,6 +97,18 @@ section.band{padding:64px 0;border-top:1px solid var(--line)}
 .note-info{background:#E8EEFA;border-color:var(--ink)}
 .result-actions{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;margin-top:36px}
 .disclaimer{margin:24px 0 0;font-size:.9rem;color:var(--muted)}
+.lead{margin-top:36px;padding:26px 22px;background:var(--paper);border:1px solid var(--line);border-radius:16px;scroll-margin-top:16px}
+.lead-form{display:grid;gap:16px;margin-top:8px}
+.field{display:grid;gap:6px;font-weight:600}
+.field input{font:inherit;font-weight:400;padding:13px 14px;border:2px solid var(--line);border-radius:12px;background:var(--white);color:var(--ink);width:100%}
+.field input:focus{border-color:var(--ink)}
+.consent{display:flex;gap:12px;align-items:flex-start;font-size:.95rem}
+.consent input{width:20px;height:20px;margin-top:3px;flex:none;accent-color:var(--green)}
+.trap{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.lead-form .btn{justify-self:start}
+.lead-status{margin:0;min-height:1.5em;color:var(--muted)}
+.lead-status.is-error{color:var(--red);font-weight:600}
+.lead-done{margin:0;padding:16px 18px;background:var(--green-soft);border-left:5px solid var(--green);border-radius:12px;font-weight:600}
 
 /* Home sections */
 .facts{list-style:none;padding:0;margin:0;display:grid;gap:0}
@@ -180,6 +191,9 @@ footer.site a{color:var(--muted)}
   .result-head{grid-template-columns:300px 1fr;gap:40px}
   .bar-row{grid-template-columns:200px 1fr 3.5em}
   .result-notes,.cats,.subsidy,.cards,.posts{grid-template-columns:1fr 1fr}
+  .lead{padding:32px}
+  .lead-form{grid-template-columns:1fr 1fr}
+  .lead-form .consent,.lead-form .btn,.lead-form .lead-status{grid-column:1/-1}
   .posts{column-gap:56px}
   .steps{grid-template-columns:repeat(3,1fr)}
   .facts{grid-template-columns:repeat(3,1fr);gap:32px}

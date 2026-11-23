@@ -14,7 +14,7 @@ NAV = [
 ]
 
 
-def head(title: str, description: str, prefix: str, active: str, note: str) -> str:
+def head(title: str, description: str, prefix: str, active: str) -> str:
     current = ' aria-current="page"'
     links = "".join(
         f'<a href="{prefix}{href}"{current if key == active else ""}>{label}</a>'
@@ -30,10 +30,9 @@ def head(title: str, description: str, prefix: str, active: str, note: str) -> s
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="{prefix}assets/site.css?v=4">
+<link rel="stylesheet" href="{prefix}assets/site.css?v=5">
 </head>
 <body>
-<div class="demo-note">{html.escape(note)}</div>
 <div class="wrap">
 <header class="top">
   <a class="brand" href="{prefix}index.html"><span></span>{BRAND}</a>
@@ -53,7 +52,7 @@ def foot(prefix: str) -> str:
     <a href="{prefix}blog/index.html">Blog</a>
     <a href="{prefix}index.html#aanbieders">Voor aanbieders</a>
   </nav>
-  <p>{BRAND} is een demo. De inhoud geeft algemene informatie en vervangt geen audit of advies op maat.</p>
+  <p>De inhoud van {BRAND} geeft algemene informatie en vervangt geen audit of advies op maat.</p>
 </footer>
 </div>
 </body>

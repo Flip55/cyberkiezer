@@ -231,6 +231,103 @@
     return wrap;
   }
 
+  function labelOf(step, value) {
+    var opts = step.options || cfg.standardOptions;
+    if (value == null) { return ""; }
+    if (step.weight != null) { return opts[value] ? opts[value].label : ""; }
+    var hit = opts.filter(function (o) { return o.id === value; })[0];
+    return hit ? hit.label : "";
+  }
+
+  function leadPayload(r, values) {
+    var data = {};
+    Object.keys(cfg.lead.extraFields || {}).forEach(function (k) { data[k] = cfg.lead.extraFields[k]; });
+    data.naam = values.name;
+    data.email = values.email;
+    data.telefoon = values.phone;
+    data.bedrijf = values.company;
+    data.toestemming = "ja";
+    data.score = comma(r.total);
+    data.niveau = r.level.label;
+    data.prioriteiten = r.priorities.map(function (q) { return q.id; }).join(", ");
+    data.verzekerbaar = r.insurable ? "ja" : "nee";
+    data.nis2 = r.nis2 || "geen";
+    steps.forEach(function (s) { data[s.id] = labelOf(s, state.answers[s.id]); });
+    data.pagina = location.href;
+    return data;
+  }
+
+  function renderLead(r) {
+    var L = cfg.lead;
+    var box = el("section", "lead");
+    box.id = "lead";
+    box.appendChild(el("h3", null, L.title));
+    box.appendChild(el("p", null, L.intro));
+
+    var form = el("form", "lead-form");
+    var inputs = {};
+    [["name", "text", "name"], ["email", "email", "email"], ["phone", "tel", "tel"], ["company", "text", "organization"]]
+      .forEach(function (f) {
+        var wrap = el("label", "field");
+        wrap.appendChild(el("span", null, L.fields[f[0]]));
+        var input = el("input");
+        input.type = f[1]; input.name = f[0]; input.required = true;
+        input.setAttribute("autocomplete", f[2]);
+        wrap.appendChild(input);
+        inputs[f[0]] = input;
+        form.appendChild(wrap);
+      });
+
+    /* Verborgen veld tegen spamrobots: mensen laten het leeg. */
+    var trap = el("input", "trap");
+    trap.type = "text"; trap.name = "website"; trap.tabIndex = -1;
+    trap.setAttribute("autocomplete", "off");
+    trap.setAttribute("aria-hidden", "true");
+    form.appendChild(trap);
+
+    var consent = el("label", "consent");
+    var check = el("input");
+    check.type = "checkbox"; check.required = true;
+    consent.appendChild(check);
+    consent.appendChild(el("span", null, L.consent));
+    form.appendChild(consent);
+
+    var submit = el("button", "btn primary big", L.submit);
+    submit.type = "submit";
+    form.appendChild(submit);
+
+    var status = el("p", "lead-status");
+    status.setAttribute("role", "status");
+    form.appendChild(status);
+
+    form.onsubmit = function (e) {
+      e.preventDefault();
+      if (trap.value) { return; }
+      submit.disabled = true;
+      status.className = "lead-status";
+      status.textContent = L.sending;
+      var values = {};
+      Object.keys(inputs).forEach(function (k) { values[k] = inputs[k].value.trim(); });
+      fetch(L.endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify(leadPayload(r, values))
+      }).then(function (res) {
+        if (!res.ok) { throw new Error("HTTP " + res.status); }
+        box.innerHTML = "";
+        box.appendChild(el("h3", null, L.title));
+        box.appendChild(el("p", "lead-done", L.success));
+      }).catch(function () {
+        submit.disabled = false;
+        status.className = "lead-status is-error";
+        status.textContent = L.error;
+      });
+    };
+
+    box.appendChild(form);
+    return box;
+  }
+
   function renderResult() {
     var r = compute(state.answers, cfg);
     var box = el("div", "quiz-result");
@@ -286,15 +383,29 @@
     }
     box.appendChild(notes);
 
+    var leadOn = cfg.lead && cfg.lead.endpoint;
+    var leadBox = leadOn ? renderLead(r) : null;
+
     var actions = el("div", "result-actions");
     var cta = el("a", "btn primary big", cfg.cta.label);
-    cta.href = cfg.cta.url;
+    if (leadOn) {
+      cta.href = "#lead";
+      cta.onclick = function (e) {
+        e.preventDefault();
+        leadBox.scrollIntoView({ block: "start", behavior: reduced ? "auto" : "smooth" });
+        var first = leadBox.querySelector("input");
+        if (first) { first.focus({ preventScroll: true }); }
+      };
+    } else {
+      cta.href = cfg.cta.url;
+    }
     actions.appendChild(cta);
     var again = el("button", "btn ghost", cfg.labels.restart);
     again.type = "button";
     again.onclick = function () { reset(); go(-1); };
     actions.appendChild(again);
     box.appendChild(actions);
+    if (leadBox) { box.appendChild(leadBox); }
 
     box.appendChild(el("p", "disclaimer", cfg.labels.disclaimer));
     return box;
