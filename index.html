@@ -85,9 +85,26 @@ section{padding:72px 0;border-top:1px solid var(--line)}
 .calc .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:8px}
 .calc small{color:#c5cee0}
 .source{font-size:.88rem;color:var(--muted)}
+
+.providers{list-style:none;margin:28px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.providers li{background:var(--white);border:1px solid var(--line);padding:18px 16px;min-height:104px;display:flex;flex-direction:column;justify-content:space-between;gap:10px}
+.providers strong{font-family:var(--display);font-size:1.12rem;line-height:1.15}
+.providers span{font-size:.82rem;color:var(--muted);line-height:1.35}
+.prov-foot{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;margin-top:24px}
+.prov-foot p{margin:0}
+.why{list-style:none;margin:24px 0 0;padding:0;border-top:2px solid var(--ink)}
+.why li{display:grid;grid-template-columns:7.5em 1fr;gap:20px;padding:18px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.why b{font-family:var(--display);font-size:2rem;line-height:1}
+.why small{display:block;color:var(--muted);margin-top:4px}
+.steps{margin:24px 0 0;padding:0;list-style:none;counter-reset:s;display:grid;grid-template-columns:repeat(3,1fr);gap:32px}
+.steps li{counter-increment:s;border-top:2px solid var(--ink);padding-top:14px}
+.steps li::before{content:counter(s);font-family:var(--display);font-weight:700;font-size:1.6rem;display:block;margin-bottom:6px}
+.steps p{margin:0;color:var(--muted)}
 footer{padding:40px 0 64px;border-top:2px solid var(--ink);font-size:.92rem;color:var(--muted)}
 @media (max-width:860px){
-  .hero,.attest,.next,.subsidy,.controls{grid-template-columns:1fr}
+  .hero,.attest,.next,.subsidy,.controls,.steps{grid-template-columns:1fr}
+  .providers{grid-template-columns:repeat(2,1fr)}
+  .why li{grid-template-columns:1fr;gap:4px}
   nav{display:none}
   .chat{height:520px;box-shadow:5px 5px 0 var(--amber)}
 }
@@ -99,7 +116,7 @@ footer{padding:40px 0 64px;border-top:2px solid var(--ink);font-size:.92rem;colo
 <div class="wrap">
 <header class="top">
   <a class="brand" href="#"><span></span>Cyberkiezer</a>
-  <nav><a href="blog/index.html">Blog</a><a href="#wat">Wat we nakijken</a><a href="#steun">VLAIO-steun</a><a href="#aanbieders">Voor aanbieders</a></nav>
+  <nav><a href="#dienstverleners">Dienstverleners</a><a href="blog/index.html">Blog</a><a href="#steun">VLAIO-steun</a><a href="#aanbieders">Voor aanbieders</a></nav>
 </header>
 
 <main>
@@ -148,6 +165,54 @@ footer{padding:40px 0 64px;border-top:2px solid var(--ink);font-size:.92rem;colo
       <div class="sent" id="sent">Dit is een demo: er is niets verstuurd en niets bewaard. In de echte versie krijg je hier een bevestiging en je rapport per e-mail.</div>
     </div>
   </div>
+</section>
+
+<section id="dienstverleners">
+  <h2>De 19 erkende cybersecurity-dienstverleners van Vlaanderen</h2>
+  <p>Eén overzicht van de dienstverleners waarmee je een verbetertraject met 50% VLAIO-steun kan starten, van regionale IT-partners tot gespecialiseerde securitybedrijven.</p>
+  <ul class="providers">
+    <li><strong>Apogado</strong><span>Mechelen</span></li>
+    <li><strong>Axians</strong><span>Roeselare, Merelbeke, Asse, Brussel, Herstal</span></li>
+    <li><strong>Cegeka</strong><span>Hasselt, Leuven, Antwerpen, Brussel, Gent</span></li>
+    <li><strong>Cheops</strong><span>Kontich, Zaventem, Gent, Herentals, Turnhout</span></li>
+    <li><strong>Cingulum en CRANIUM</strong><span>Zaventem, Gent, Hasselt</span></li>
+    <li><strong>CONXION</strong><span>Deerlijk, Waregem, Kortrijk, Roeselare, Lokeren</span></li>
+    <li><strong>Cresco</strong><span>Brussel, Zaventem</span></li>
+    <li><strong>Cronos Security</strong><span>11 vestigingen in Vlaanderen en Brussel</span></li>
+    <li><strong>Cyberplan, Jimber, Secamo</strong><span>Brugge, Gent, Antwerpen</span></li>
+    <li><strong>Cyberwise, Alistar</strong><span>Gent, Sint-Niklaas, Westerlo, Zottegem</span></li>
+    <li><strong>Group K</strong><span>Houthalen-Helchteren</span></li>
+    <li><strong>IT1</strong><span>Dendermonde, Gentbrugge, Grimbergen, Berchem</span></li>
+    <li><strong>Netcure</strong><span>Zaventem, Kasterlee</span></li>
+    <li><strong>Refracted Security</strong><span>Lier</span></li>
+    <li><strong>Savaco</strong><span>Kortrijk, Ieper, Gent, Zandhoven, Leuven, Roosdaal</span></li>
+    <li><strong>Serso</strong><span>Lummen</span></li>
+    <li><strong>Sertalink</strong><span>Belsele</span></li>
+    <li><strong>Toreon</strong><span>Antwerpen</span></li>
+    <li><strong>Zerobit, Grant Thornton, Soteria</strong><span>Antwerpen, Brussel, Doornik, Turnhout, Gent, Leuven</span></li>
+  </ul>
+  <div class="prov-foot">
+    <p class="source">Lijst volgens <a href="https://www.vlaio.be/nl/subsidies-financiering/cybersecurity-verbetertrajecten/hoe-start-je-jouw-verbetertraject">VLAIO</a>, geraadpleegd in november 2026. Vestigingen volgens publieke informatie. Deze bedrijven zijn geen partner van Cyberkiezer. Alle merknamen zijn eigendom van hun respectieve houders.</p>
+    <p>Staat jouw bedrijf hier nog niet bij? <a href="#aanbieders">Neem contact met ons op</a></p>
+  </div>
+</section>
+
+<section id="werking">
+  <h2>In drie stappen naar de juiste partner</h2>
+  <ol class="steps">
+    <li><h3>Doe de check</h3><p>Tien vragen over je bedrijf, je tools en je afspraken. Het duurt drie minuten.</p></li>
+    <li><h3>Lees je rapport</h3><p>Je score, je grootste gaten en wat een verbetertraject na steun ongeveer kost.</p></li>
+    <li><h3>Kies tot drie dienstverleners</h3><p>Zij ontvangen je rapport en nemen contact op met een voorstel op maat.</p></li>
+  </ol>
+</section>
+
+<section id="waarom">
+  <h2>Waarom dit nu op je agenda hoort</h2>
+  <ul class="why">
+    <li><b>45,8%</b><div>van de Vlaamse bedrijven kreeg in 2024 een cyberaanval te verwerken. Bij één op tien was er echte schade.<small>Bron: VLAIO cybersecurity barometer</small></div></li>
+    <li><b>588</b><div>cyberincidenten kreeg het Centrum voor Cybersecurity België gemeld tussen januari en september 2026. Dat is meer dan in heel 2025.<small>Bron: The Brussels Times, oktober 2026</small></div></li>
+    <li><b>46,4%</b><div>van de bedrijven gebruikt aanmelden in twee stappen, terwijl volgens het CCB meer dan 80% van de incidenten daarmee te vermijden is.<small>Bron: bevraging CCB, juli 2025</small></div></li>
+  </ul>
 </section>
 
 <section id="wat">
