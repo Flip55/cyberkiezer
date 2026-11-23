@@ -54,7 +54,7 @@ window.QUIZ_CONFIG = {
    * extraFields: vaste velden die mee verstuurd worden, bv. de sleutel van je formulierdienst.
    */
   lead: {
-    endpoint: "",
+    endpoint: "https://script.google.com/macros/s/AKfycbyjSSOLFseAcj3WVM5-OfUq_ypJ1c2L17mNlD7nkcTw4flEvHZAO-41E3yAXsYlAuWvDg/exec",
     /* Google Apps Script aanvaardt geen "application/json" vanuit de browser, wel platte tekst met JSON erin. */
     contentType: "text/plain;charset=utf-8",
     extraFields: {},
