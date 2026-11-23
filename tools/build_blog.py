@@ -210,7 +210,7 @@ ARTICLES = [
 </ul>
 <h2>Eerst beveiligen, dan verzekeren</h2>
 <p>Een verzekering voorkomt geen aanval. Ze beperkt de financiële schade achteraf. Breng dus eerst je basismaatregelen op orde. Dat verlaagt je risico en maakt het ook makkelijker om een polis te krijgen.</p>
-<p class="source">Dit artikel geeft algemene informatie en is geen verzekeringsadvies. Cyberkiezer vergelijkt geen verzekeringen. Voor een polis op maat ga je naar een erkende verzekeringsmakelaar.</p>
+<p class="source">Dit artikel geeft algemene informatie en is geen verzekeringsadvies. Cybersecuritychecker vergelijkt geen verzekeringen. Voor een polis op maat ga je naar een erkende verzekeringsmakelaar.</p>
 """,
     },
     {
@@ -288,7 +288,7 @@ HEAD = """<!DOCTYPE html>
 <div class="demo-note">Demo-versie. De artikels zijn testinhoud en zijn nog niet nagelezen door een specialist.</div>
 <div class="wrap">
 <header class="top">
-  <a class="brand" href="../index.html"><span></span>Cyberkiezer</a>
+  <a class="brand" href="../index.html"><span></span>Cybersecuritychecker</a>
   <nav><a href="../index.html">Doe de check</a><a href="index.html">Blog</a><a href="../index.html#steun">VLAIO-steun</a></nav>
 </header>
 <main>
@@ -296,7 +296,7 @@ HEAD = """<!DOCTYPE html>
 
 FOOT = """</main>
 <footer>
-  <p>Cyberkiezer is een demo. De artikels geven algemene informatie en vervangen geen audit of advies op maat.</p>
+  <p>Cybersecuritychecker is een demo. De artikels geven algemene informatie en vervangen geen audit of advies op maat.</p>
 </footer>
 </div>
 </body>
@@ -323,7 +323,7 @@ def build() -> None:
         esc_sum = html.escape(a["summary"])
         mins = minutes(a["body"])
         page = (
-            HEAD.format(title=esc_title + " | Cyberkiezer", description=esc_sum)
+            HEAD.format(title=esc_title + " | Cybersecuritychecker", description=esc_sum)
             + '<article class="post">\n'
             + '<p class="back"><a href="index.html">Alle artikels</a></p>\n'
             + f"<h1>{esc_title}</h1>\n"
@@ -341,7 +341,7 @@ def build() -> None:
         )
     index = (
         HEAD.format(
-            title="Blog | Cyberkiezer",
+            title="Blog | Cybersecuritychecker",
             description="Praktische artikels over cybersecurity voor kmo's in Vlaanderen.",
         )
         + '<div class="blog-head"><h1>Cybersecurity voor kmo\'s, zonder jargon</h1>'

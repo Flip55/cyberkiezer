@@ -1,4 +1,4 @@
-# Cyberkiezer
+# Cybersecuritychecker
 
 Demo of a cybersecurity check for Flemish SMEs ("cybersecurity voor kmo").
 
