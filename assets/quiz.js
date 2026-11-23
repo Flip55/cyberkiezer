@@ -310,10 +310,14 @@
       Object.keys(inputs).forEach(function (k) { values[k] = inputs[k].value.trim(); });
       fetch(L.endpoint, {
         method: "POST",
-        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        headers: { "Content-Type": L.contentType || "application/json", "Accept": "application/json" },
         body: JSON.stringify(leadPayload(r, values))
       }).then(function (res) {
         if (!res.ok) { throw new Error("HTTP " + res.status); }
+        return res.json().catch(function () { return {}; });
+      }).then(function (body) {
+        /* De ontvanger kan een fout melden met status 200 (Google Apps Script doet dat). */
+        if (body && body.ok === false) { throw new Error(body.error || "geweigerd"); }
         box.innerHTML = "";
         box.appendChild(el("h3", null, L.title));
         box.appendChild(el("p", "lead-done", L.success));
