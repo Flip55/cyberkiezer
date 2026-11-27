@@ -19,7 +19,7 @@ BODY = f"""
   <div class="container hero-grid">
     <div class="hero-copy">
       <p class="pill"><i></i>Onafhankelijke check voor Belgische kmo's, gebaseerd op het CyberFundamentals-kader van het CCB</p>
-      <h1>Check in 3 minuten hoe cyberveilig je kmo is en ontdek welke Belgische specialist bij je past.</h1>
+      <h1>Hoe cyberveilig is je kmo?<span>Check het in 3 minuten en ontdek welke Belgische specialist bij je past.</span></h1>
       <p class="hero-sub">Je krijgt een score op 10 en je drie belangrijkste verbeterpunten. Als je dat wil, brengen we je in contact met maximaal drie specialisten die passen bij je grootte, sector en noden.</p>
       <div class="hero-actions">
         <a class="btn primary big" href="#quiz">Start de gratis check</a>

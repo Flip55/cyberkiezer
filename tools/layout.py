@@ -6,7 +6,7 @@ All pages are generated, so a change here reaches the whole site:
 import html
 
 BRAND = "cybersecuritychecker.be"
-VERSION = "9"  # raise when assets change, so browsers fetch the new files
+VERSION = "10"  # raise when assets change, so browsers fetch the new files
 
 NAV = [
     ("it", "it-dienstverleners.html", "IT-dienstverleners"),
