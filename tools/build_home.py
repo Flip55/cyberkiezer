@@ -1,0 +1,195 @@
+#!/usr/bin/env python3
+"""Builds the homepage (index.html).
+
+Run from the repository root:  python3 tools/build_home.py
+The check itself lives in assets/quiz-config.js (texts), assets/quiz.js (logic)
+and assets/match-data.js (data behind the specialist matches).
+"""
+import pathlib
+import sys
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from layout import VERSION, foot, head  # noqa: E402
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>'
+
+BODY = f"""
+<section class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="pill"><i></i>Onafhankelijke check voor Belgische kmo's, gebaseerd op het CyberFundamentals-kader van het CCB</p>
+      <h1>Check in 3 minuten hoe cyberveilig je kmo is en ontdek welke Belgische specialist bij je past.</h1>
+      <p class="hero-sub">Je krijgt een score op 10 en je drie belangrijkste verbeterpunten. Als je dat wil, brengen we je in contact met maximaal drie specialisten die passen bij je grootte, sector en noden.</p>
+      <div class="hero-actions">
+        <a class="btn primary big" href="#quiz">Start de gratis check</a>
+        <a class="btn outline big" href="#belofte">Onze belofte: geen spam</a>
+      </div>
+      <ul class="trust">
+        <li class="ok">{CHECK}Onafhankelijk</li>
+        <li>Vrijblijvend</li>
+        <li>Je deelt je gegevens alleen als je zelf hulp vraagt</li>
+      </ul>
+    </div>
+    <div class="sample" aria-label="Voorbeeld van een resultaat">
+      <div class="sample-head">
+        <div><p class="sample-eyebrow">Voorbeeld van een resultaat</p><p class="sample-title">Kmo met 11 tot 49 medewerkers, handel</p></div>
+        <span class="sample-badge">Kwetsbaar</span>
+      </div>
+      <div class="sample-score">
+        <div class="ring">
+          <svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="42" fill="none" stroke="#1E293B" stroke-width="10"/><circle cx="50" cy="50" r="42" fill="none" stroke="#F43F5E" stroke-width="10" stroke-linecap="round" stroke-dasharray="263.89" stroke-dashoffset="137.22"/></svg>
+          <div><strong>4,8</strong><span>op 10</span></div>
+        </div>
+        <div><p class="sample-strong">Cyberscore: 4,8 op 10</p><p>Twee grote gaten: back-ups die nooit getest zijn en geen zicht op NIS2.</p></div>
+      </div>
+      <div class="sample-matches">
+        <p class="sample-found">{CHECK}Passende specialisten gevonden<span>Optioneel</span></p>
+        <div class="sample-match"><div><p>Securityadviseur</p><p>CyberFundamentals en NIS2, door VLAIO erkend</p></div><span class="g">92% match</span></div>
+        <div class="sample-match"><div><p>IT-partner met securityaanbod</p><p>Back-up, herstel en opleiding van medewerkers</p></div><span class="b">85% match</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="strip" id="werking">
+  <div class="container steps">
+    <div class="step"><span>01</span><div><h2>Score</h2><p>Beantwoord 14 korte vragen over je bedrijf en je beveiliging. Zonder vakjargon.</p></div></div>
+    <div class="step"><span>02</span><div><h2>Inzicht</h2><p>Je ziet meteen je score, je score per domein en je drie belangrijkste verbeterpunten.</p></div></div>
+    <div class="step opt"><span>03</span><div><h2>Match <em>Optioneel</em></h2><p>Vraag een kennismaking aan met maximaal drie specialisten die bij je profiel passen.</p></div></div>
+  </div>
+</section>
+
+<section class="band white" id="waarom">
+  <div class="container">
+    <p class="eyebrow">Waarom nu</p>
+    <h2>Waarom Belgische kmo's hun beveiliging nu nakijken</h2>
+    <div class="reasons">
+      <article class="reason">
+        <h3>NIS2 en CyberFundamentals</h3>
+        <p>De Belgische NIS2-wet verplicht organisaties in essentiële en belangrijke sectoren om hun beveiliging aantoonbaar op orde te hebben en incidenten te melden. Het CyberFundamentals-kader van het CCB is daarvoor de Belgische leidraad.</p>
+        <p class="reason-foot">De check volgt de basismaatregelen van dat kader</p>
+      </article>
+      <article class="reason">
+        <h3>Klanten vragen bewijs</h3>
+        <p>Grote klanten leggen de NIS2-eisen door aan hun leveranciers. Wie hun vragenlijst over beveiliging niet kan invullen, riskeert een contract of een verlenging te verliezen.</p>
+        <p class="reason-foot">Bescherm je contracten</p>
+      </article>
+      <article class="reason green">
+        <h3>Ransomware en gesubsidieerd advies</h3>
+        <p>Ontdek je zwakke plekken in back-ups en herstel voor een aanval ze vindt. Vlaamse kmo's krijgen via de <strong>kmo-portefeuille</strong> 45% (kleine onderneming) of 35% (middelgrote onderneming) steun voor cybersecurity-advies, tot 7.500 euro per jaar.</p>
+        <p class="reason-foot">Voor een verbetertraject betaalt VLAIO 50%</p>
+      </article>
+    </div>
+    <ul class="stats">
+      <li><b>45,8%</b><span>van de Vlaamse bedrijven kreeg in 2024 een cyberaanval te verwerken. Bij één op tien was er echte schade.<small>Bron: VLAIO cybersecurity barometer</small></span></li>
+      <li><b>588</b><span>cyberincidenten kreeg het CCB gemeld tussen januari en september 2026. Dat is meer dan in heel 2025.<small>Bron: The Brussels Times, oktober 2026</small></span></li>
+      <li><b>46,4%</b><span>van de bedrijven gebruikt tweestapsverificatie, terwijl volgens het CCB meer dan 80% van de incidenten daarmee te vermijden is.<small>Bron: bevraging CCB, juli 2025</small></span></li>
+    </ul>
+    <p class="source">Steunpercentages volgens <a href="https://www.vlaio.be/nl/subsidies-financiering/kmo-portefeuille">VLAIO, kmo-portefeuille</a>, geraadpleegd in november 2026. Sinds 1 februari 2026 steunt de kmo-portefeuille enkel nog advies over cybersecurity, bij een geregistreerde dienstverlener. De regeling geldt in Vlaanderen.</p>
+  </div>
+</section>
+
+<section class="band" id="belofte">
+  <div class="container">
+    <p class="eyebrow green">Vertrouwen en neutraliteit</p>
+    <h2>Onze belofte: geen spam, wel een eerlijke match</h2>
+    <div class="promise">
+      <div class="panel">
+        <h3>Wat deze check wel en niet is</h3>
+        <p><strong>cybersecuritychecker.be</strong> is een onafhankelijke, indicatieve check voor Belgische kmo's. Het is geen verkapt verkoopgesprek van één bureau en geen technische scan van je systemen.</p>
+        <div class="why-free"><strong>Waarom is de check gratis?</strong>Specialisten betalen ons een vergoeding wanneer jij uitdrukkelijk vraagt om met hen in contact te komen. Je score en je verbeterpunten krijg je altijd, ook als je niets aanvraagt.</div>
+        <p class="chips"><span>Niets te installeren</span><span>Resultaat zonder registratie</span><span class="g">Onafhankelijk</span></p>
+      </div>
+      <div class="panel pillars">
+        <div class="pillar"><i>{CHECK}</i><div><h3>Maximaal drie specialisten</h3><p>Je gegevens worden niet verkocht en niet naar een lijst van tien bureaus gestuurd. Vraag je een kennismaking aan, dan gaat je aanvraag naar hoogstens drie specialisten.</p></div></div>
+        <div class="pillar"><i>{CHECK}</i><div><h3>Matching op feiten</h3><p>We matchen op wat specialisten zelf publiek maken: hun diensten, doelgroep, sectoren en erkenning door VLAIO. Bij elke match zie je waarom die bij je past.</p></div></div>
+        <div class="pillar"><i>{CHECK}</i><div><h3>Jij beslist</h3><p>Je ziet eerst je score en je verbeterpunten. Pas daarna kies je of je een kennismaking wil.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="checker" id="check">
+  <div class="container narrow">
+    <div class="checker-head">
+      <p class="pill dark">Cybersecurity-check en matching</p>
+      <h2>Ken je score en je passende specialisten</h2>
+      <p>3 minuten, afgestemd op je grootte, sector en IT-situatie.</p>
+    </div>
+    <div class="checker-card">
+      <div id="quiz" class="quiz"><noscript><p>Zet JavaScript aan in je browser om de check te doen.</p></noscript></div>
+    </div>
+  </div>
+</section>
+
+<section class="band white" id="aanbod">
+  <div class="container">
+    <h2>Liever zelf rondkijken?</h2>
+    <p class="band-intro">Twee soorten partijen maken het verschil: wie je beveiliging op orde brengt, en wie de schade dekt als het toch misgaat.</p>
+    <div class="cats">
+      <a class="cat" href="it-dienstverleners.html"><h3>IT-dienstverleners</h3><p>24 IT- en securitybedrijven voor kmo's, waaronder de 19 door VLAIO erkende dienstverleners voor een verbetertraject met 50% steun.</p><span>Bekijk de IT-dienstverleners</span></a>
+      <a class="cat" href="cyberverzekeraars.html"><h3>Cyberverzekeraars</h3><p>Verzekeraars met een cyberpolis voor Belgische ondernemingen, en hoe je er een aanvraagt.</p><span>Bekijk de cyberverzekeraars</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="steun">
+  <div class="container subsidy">
+    <div>
+      <h2>VLAIO betaalt de helft van een verbetertraject</h2>
+      <p>Met een cybersecurity verbetertraject werk je samen met een door VLAIO erkende dienstverlener aan je beveiliging. Voor kmo's neemt VLAIO 50% van de kostprijs voor zijn rekening en betaalt dat deel rechtstreeks aan de dienstverlener.</p>
+      <p>Er zijn drie pakketten: START, MEDIUM en PLUS. De kostprijs ligt tussen 7.100 en 39.900 euro, afhankelijk van het pakket en de dienstverlener.</p>
+      <p class="source">Bron: <a href="https://www.vlaio.be/nl/subsidies-financiering/subsidiedatabank/cybersecurity-subsidies">VLAIO, cybersecurity subsidies</a>, geraadpleegd in november 2026. Controleer de actuele voorwaarden bij VLAIO. De regeling geldt in Vlaanderen.</p>
+    </div>
+    <div class="calc">
+      <label for="cost">Kostprijs van het traject</label>
+      <output id="total">€ 15.000</output>
+      <input id="cost" type="range" min="7100" max="39900" step="100" value="15000">
+      <div class="split">
+        <div><small>VLAIO betaalt</small><output id="vlaio">€ 7.500</output></div>
+        <div><small>Jij betaalt</small><output id="own">€ 7.500</output></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band white" id="aanbieders">
+  <div class="container">
+    <h2>Voor aanbieders</h2>
+    <p class="band-intro">Ben je IT-dienstverlener, securityspecialist of verzekeringsmakelaar en wil je in het overzicht staan of je vermelding aanpassen? Laat het ons weten.</p>
+    <a class="btn outline" href="mailto:info@example.com?subject=cybersecuritychecker.be%20aanbieder">Neem contact met ons op</a>
+  </div>
+</section>
+
+<script src="assets/quiz-config.js?v={VERSION}"></script>
+<script src="assets/match-data.js?v={VERSION}"></script>
+<script src="assets/quiz.js?v={VERSION}"></script>
+<script>
+(function () {{
+  var fmt = function (n) {{ return "€ " + Math.round(n).toLocaleString("nl-BE"); }};
+  var cost = document.getElementById("cost");
+  cost.oninput = function () {{
+    var v = +cost.value;
+    document.getElementById("total").textContent = fmt(v);
+    document.getElementById("vlaio").textContent = fmt(v / 2);
+    document.getElementById("own").textContent = fmt(v / 2);
+  }};
+}})();
+</script>
+"""
+
+
+def build() -> None:
+    page = (
+        head("cybersecuritychecker.be: check in 3 minuten hoe cyberveilig je kmo is",
+             "Gratis en onafhankelijke cybersecurity-check voor Belgische kmo's. 14 korte vragen, een score op 10, je 3 belangrijkste verbeterpunten en specialisten die bij je passen.",
+             "", "home", wide=True)
+        + BODY + foot("", wide=True)
+    )
+    (ROOT / "index.html").write_text(page, encoding="utf-8")
+    print("Built index.html")
+
+
+if __name__ == "__main__":
+    build()

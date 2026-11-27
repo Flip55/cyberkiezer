@@ -214,7 +214,7 @@ ARTICLES = [
 </ul>
 <h2>Eerst beveiligen, dan verzekeren</h2>
 <p>Een verzekering voorkomt geen aanval. Ze beperkt de financiële schade achteraf. Breng dus eerst je basismaatregelen op orde. Dat verlaagt je risico en maakt het ook makkelijker om een polis te krijgen.</p>
-<p class="source">Dit artikel geeft algemene informatie en is geen verzekeringsadvies. Cybersecurity Checker vergelijkt geen verzekeringen. Voor een polis op maat ga je naar een erkende verzekeringsmakelaar.</p>
+<p class="source">Dit artikel geeft algemene informatie en is geen verzekeringsadvies. cybersecuritychecker.be vergelijkt geen verzekeringen. Voor een polis op maat ga je naar een erkende verzekeringsmakelaar.</p>
 """,
     },
     {

@@ -10,18 +10,11 @@ window.QUIZ_CONFIG = {
   storageKey: "csc-quickscan-v1",
 
   start: {
-    title: "Hoe veilig is jouw bedrijf? Ken je cyberscore in 3 minuten.",
-    subtitle: "Gratis en onafhankelijk. Je krijgt een score op 10 en je 3 belangrijkste verbeterpunten.",
+    title: "Hoe veilig is jouw bedrijf?",
+    subtitle: "Beantwoord 14 korte vragen. Je krijgt meteen een score op 10, je 3 belangrijkste verbeterpunten en de specialisten die bij je profiel passen.",
     button: "Start de gratis check",
-    note: "14 korte vragen · geen IT-kennis nodig",
-    resume: "Ga verder waar je gebleven was",
-    image: {
-      src: "assets/hero.jpg",
-      srcSmall: "assets/hero-800.jpg",
-      alt: "Twee collega's overleggen aan een laptop in een kleurrijk kmo-kantoor",
-      width: 1400,
-      height: 1183
-    }
+    note: "3 minuten, geen IT-kennis nodig, geen registratie",
+    resume: "Ga verder waar je gebleven was"
   },
 
   labels: {
@@ -38,11 +31,27 @@ window.QUIZ_CONFIG = {
     noPriorities: "Je haalde op elke vraag de volle punten. Blijf testen, trainen en bijwerken.",
     insuranceTitle: "Verzekerbaarheid",
     nis2Title: "NIS2-indicatie",
-    disclaimer: "Deze quickscan geeft een indicatie en is geen volledige audit."
+    disclaimer: "Deze check geeft een indicatie en is geen volledige audit.",
+    matchEyebrow: "Afgestemd op je profiel",
+    matchTitle: "Specialisten die bij je passen",
+    matchIntro: "We tonen geen namen, wel waarom elke specialist bij je past. Vraag je een kennismaking aan, dan brengen we je met hen in contact.",
+    matchPct: "{n}% match",
+    matchSpecialist: "Specialist {n}",
+    matchCovered: "Helpt bij: {items}",
+    matchPartly: "Deels in het aanbod: {items}",
+    matchMissing: "Niet uitdrukkelijk in het aanbod: {items}",
+    matchAll: "Biedt hulp op alle domeinen van de check",
+    matchLevel: "Richt zich op bedrijven op jouw niveau",
+    matchSector: "Noemt jouw sector als doelgroep",
+    matchVlaio: "Door VLAIO erkend: 50% steun mogelijk voor een verbetertraject",
+    matchKindIt: "IT-partner die de uitvoering kan opnemen",
+    matchKindAdvies: "Adviseur die naast je bestaande IT-beheer werkt",
+    matchHow: "Hoe berekenen we de match?",
+    matchHowText: "De match telt op 100: 60 punten voor de mate waarin het aanbod je verbeterpunten dekt, 15 voor het niveau waarop de specialist zich richt, 10 voor je sector, 10 voor VLAIO-steun en 5 voor de aansluiting bij je IT-beheer. We baseren ons op wat specialisten zelf publiek maken, vooral hun fiche bij VLAIO. Zij hebben deze gegevens niet nagekeken. Een verzekering valt buiten de match."
   },
 
   cta: {
-    label: "Hulp nodig bij deze verbeterpunten?",
+    label: "Vraag een gratis kennismaking aan",
     /* Wordt gebruikt zolang lead.endpoint leeg is. */
     url: "it-dienstverleners.html"
   },
@@ -58,18 +67,19 @@ window.QUIZ_CONFIG = {
     /* Google Apps Script aanvaardt geen "application/json" vanuit de browser, wel platte tekst met JSON erin. */
     contentType: "text/plain;charset=utf-8",
     extraFields: {},
-    title: "Laat je vrijblijvend contacteren",
-    intro: "Laat je gegevens achter. We nemen contact op en brengen je in contact met maximaal drie dienstverleners die bij je verbeterpunten passen.",
+    title: "Vraag een gratis kennismaking aan",
+    intro: "Laat je gegevens achter. We bezorgen je aanvraag en je resultaat aan maximaal drie specialisten die bij je profiel passen. Zij nemen contact met je op.",
     fields: {
       name: "Naam",
       email: "E-mailadres",
       phone: "Telefoonnummer",
       company: "Bedrijf"
     },
-    consent: "Ik ga akkoord dat Cybersecurity Checker mijn gegevens en mijn resultaat gebruikt om mij te contacteren en ze doorgeeft aan maximaal drie dienstverleners.",
+    consent: "Ja, breng me in contact met maximaal drie specialisten die bij mijn profiel passen. Gratis en vrijblijvend.",
+    consentNote: "cybersecuritychecker.be geeft mijn gegevens en mijn resultaat alleen daarvoor door. Vink je dit niet aan, dan versturen we niets.",
     submit: "Verstuur mijn aanvraag",
     sending: "Bezig met versturen...",
-    success: "Bedankt. We hebben je aanvraag ontvangen en nemen contact met je op.",
+    success: "Bedankt. We delen je aanvraag meteen met de specialisten die bij je passen. Je hoort van maximaal drie partijen.",
     error: "Versturen is niet gelukt. Controleer je verbinding en probeer het opnieuw."
   },
 
@@ -137,13 +147,13 @@ window.QUIZ_CONFIG = {
   /* Scorevragen: samen 10 punten. Zonder "options" gelden de standaardopties. */
   questions: [
     {
-      id: "Q1", weight: 1.5, domain: "toegang",
+      id: "Q1", weight: 1.5, domain: "toegang", short: "tweestapsverificatie", cap: "iam",
       text: "Tweestapsverificatie: moet iedereen naast een wachtwoord ook een code of app gebruiken om in te loggen op e-mail en belangrijke programma's?",
       explain: "Bij tweestapsverificatie bevestig je het inloggen met een code op je telefoon of in een app. Een gestolen wachtwoord is dan niet genoeg om binnen te raken.",
       tip: "Zet tweestapsverificatie aan op e-mail, boekhouding en bankieren. Het is gratis en stopt de meeste inbraken op accounts."
     },
     {
-      id: "Q2", weight: 1.5, domain: "herstel",
+      id: "Q2", weight: 1.5, domain: "herstel", short: "back-ups", cap: "backup",
       text: "Back-ups: worden je bedrijfsgegevens automatisch geback-upt, los van je netwerk bewaard, en heb je ooit getest of terugzetten werkt?",
       explain: "Een back-up is een reservekopie van je bestanden. Staat die op een andere plek dan je computers en heb je het terugzetten al eens geprobeerd, dan kan je na een hack of brand opnieuw starten.",
       options: [
@@ -155,37 +165,37 @@ window.QUIZ_CONFIG = {
       tip: "Zorg voor automatische back-ups die los van je netwerk staan en test minstens één keer per jaar of terugzetten werkt."
     },
     {
-      id: "Q3", weight: 1, domain: "bescherming",
+      id: "Q3", weight: 1, domain: "bescherming", short: "updates", cap: "protect",
       text: "Updates: worden computers, telefoons en software automatisch up-to-date gehouden?",
       explain: "Updates dichten lekken die aanvallers al kennen. Staan ze automatisch aan, dan hoef je er zelf niet aan te denken.",
       tip: "Zet automatische updates aan op alle toestellen en vervang software die geen updates meer krijgt."
     },
     {
-      id: "Q4", weight: 1, domain: "bescherming",
+      id: "Q4", weight: 1, domain: "bescherming", short: "antivirus en firewall", cap: "protect",
       text: "Antivirus en firewall: staat er actuele beveiligingssoftware (antivirus) op alle computers en is er een firewall actief?",
       explain: "Antivirus houdt schadelijke programma's tegen op je computer. Een firewall is de poort tussen je netwerk en het internet en laat alleen gewenst verkeer door.",
       tip: "Installeer actuele beveiligingssoftware op elke computer en controleer of je firewall aan staat."
     },
     {
-      id: "Q5", weight: 1, domain: "mensen",
+      id: "Q5", weight: 1, domain: "mensen", short: "opleiding rond phishing", cap: "awareness",
       text: "Medewerkers: kregen je medewerkers het voorbije jaar een training of test rond phishing (valse mails)?",
       explain: "Phishing zijn valse mails die je laten klikken, betalen of een wachtwoord invullen. Wie ze leert herkennen, trapt er veel minder snel in.",
       tip: "Geef je team een korte phishingtraining en test af en toe met een nepmail."
     },
     {
-      id: "Q6", weight: 1, domain: "toegang",
+      id: "Q6", weight: 1, domain: "toegang", short: "toegangsbeheer", cap: "iam",
       text: "Toegang: hebben alleen wie het echt nodig heeft beheerdersrechten, en worden accounts van vertrokken medewerkers meteen afgesloten?",
       explain: "Met beheerdersrechten mag je alles installeren en wijzigen. Hoe minder mensen die rechten hebben en hoe sneller oude accounts verdwijnen, hoe minder een aanvaller kan doen.",
       tip: "Beperk beheerdersrechten tot wie ze echt nodig heeft en sluit accounts van vertrekkers dezelfde dag af."
     },
     {
-      id: "Q7", weight: 0.5, domain: "toegang",
+      id: "Q7", weight: 0.5, domain: "toegang", short: "wachtwoorden", cap: "iam",
       text: "Wachtwoorden: gebruikt je team een wachtwoordmanager in plaats van eigen of hergebruikte wachtwoorden?",
       explain: "Een wachtwoordmanager is een beveiligde kluis die voor elk account een sterk wachtwoord maakt en invult. Je team hoeft er dan maar één te onthouden.",
       tip: "Voer een wachtwoordmanager in, zodat niemand nog wachtwoorden hergebruikt."
     },
     {
-      id: "Q8", weight: 1, domain: "herstel",
+      id: "Q8", weight: 1, domain: "herstel", short: "noodplan", cap: "ir",
       text: "Noodplan: weet je wie je belt en wat je doet als je morgen gehackt wordt?",
       explain: "Een noodplan is een korte lijst: wie verwittig je, wat schakel je uit en waar staan je back-ups. In paniek is er geen tijd om dat uit te zoeken.",
       options: [
@@ -197,7 +207,7 @@ window.QUIZ_CONFIG = {
       tip: "Schrijf op één A4 wie je belt en wat je doet bij een hack, en zorg dat iedereen weet waar dat blad ligt."
     },
     {
-      id: "Q9", weight: 0.5, domain: "wet",
+      id: "Q9", weight: 0.5, domain: "wet", short: "verzekering", cap: null,
       text: "Verzekering: ben je verzekerd tegen cyberschade?",
       explain: "Een cyberverzekering dekt de kosten na een hack, zoals herstel van systemen en omzetverlies. Een gewone aansprakelijkheidspolis doet dat meestal niet.",
       options: [
@@ -209,7 +219,7 @@ window.QUIZ_CONFIG = {
       tip: "Kijk na of je polis cyberschade dekt, of vraag een offerte voor een cyberverzekering."
     },
     {
-      id: "Q10", weight: 1, domain: "wet",
+      id: "Q10", weight: 1, domain: "wet", short: "NIS2", cap: "compliance",
       text: "NIS2: weet je of de Europese NIS2-cyberwetgeving op jouw bedrijf van toepassing is?",
       explain: "NIS2 is een Europese wet die bedrijven in bepaalde sectoren verplicht om hun beveiliging op orde te brengen. Ook leveranciers van die bedrijven krijgen er vragen over.",
       options: [

@@ -41,7 +41,51 @@
     return { total: total, level: level, domains: domains, priorities: priorities, insurable: insurable, nis2: nis2 };
   }
 
-  if (typeof module !== "undefined") { module.exports = { compute: compute }; }
+  /* ---------- Matching ---------- */
+
+  var LEVEL_KEY = { low: "low", mid: "mid", good: "good" };
+
+  function match(answers, cfg, data) {
+    var W = data.weights;
+    var lost = cfg.questions.map(function (q) {
+      var opts = optionsFor(q, cfg);
+      var a = answers[q.id];
+      var pct = (a != null && opts[a]) ? opts[a].pct : 0;
+      return { q: q, loss: q.weight * (1 - pct) };
+    }).filter(function (r) { return r.loss > 0 && r.q.cap; })
+      .sort(function (a, b) { return (b.loss - a.loss) || (b.q.weight - a.q.weight); });
+    var lossSum = lost.reduce(function (s, r) { return s + r.loss; }, 0);
+    var level = LEVEL_KEY[compute(answers, cfg).level.id];
+    var sme = answers.P2 !== "250+";
+    var wantsIt = answers.P4 === "self";
+
+    return data.providers.map(function (p) {
+      var capKeys = Object.keys(p.caps);
+      var coverage = lossSum
+        ? lost.reduce(function (s, r) { return s + r.loss * (p.caps[r.q.cap] || 0); }, 0) / lossSum
+        : capKeys.reduce(function (s, k) { return s + p.caps[k]; }, 0) / capKeys.length;
+      var levelFit = p.levels.length ? (p.levels.indexOf(level) !== -1 ? 1 : 0) : 0.5;
+      var sectorFit = p.sectors.length ? (p.sectors.indexOf(answers.P3) !== -1 ? 1 : 0.3) : 0.5;
+      var vlaioFit = (p.vlaio && sme) ? 1 : 0;
+      var kindFit = wantsIt ? (p.kind === "it" ? 1 : 0.5) : (p.kind === "advies" ? 1 : 0.6);
+      var score = W.coverage * coverage + W.level * levelFit + W.sector * sectorFit + W.vlaio * vlaioFit + W.kind * kindFit;
+      var top = lost.slice(0, 3);
+      return {
+        provider: p,
+        pct: Math.round(score),
+        covered: top.filter(function (r) { return p.caps[r.q.cap] === 1; }).map(function (r) { return r.q.short; }),
+        partly: top.filter(function (r) { return p.caps[r.q.cap] === 0.5; }).map(function (r) { return r.q.short; }),
+        missing: top.filter(function (r) { return !p.caps[r.q.cap]; }).map(function (r) { return r.q.short; }),
+        noGaps: !lossSum,
+        levelFit: levelFit === 1,
+        sectorFit: sectorFit === 1,
+        vlaioFit: vlaioFit === 1,
+        kindFit: kindFit === 1
+      };
+    }).sort(function (a, b) { return (b.pct - a.pct) || (a.provider.name < b.provider.name ? -1 : 1); }).slice(0, 3);
+  }
+
+  if (typeof module !== "undefined") { module.exports = { compute: compute, match: match }; }
   if (typeof document === "undefined") { return; }
 
   /* ---------- Opslag ---------- */
@@ -89,10 +133,8 @@
   /* ---------- Schermen ---------- */
 
   function renderStart() {
-    var outer = el("div", "quiz-start");
-    var box = el("div", "quiz-start-text");
-    outer.appendChild(box);
-    box.appendChild(el("h1", null, cfg.start.title));
+    var box = el("div", "quiz-start");
+    box.appendChild(el("h2", null, cfg.start.title));
     box.appendChild(el("p", "lead", cfg.start.subtitle));
     var hasProgress = Object.keys(state.answers).length > 0;
     var b = el("button", "btn primary big", hasProgress ? cfg.start.resume : cfg.start.button);
@@ -104,20 +146,7 @@
     };
     box.appendChild(b);
     box.appendChild(el("p", "quiz-note", cfg.start.note));
-    if (cfg.start.image) {
-      var im = cfg.start.image;
-      var img = el("img", "quiz-start-img");
-      img.src = im.src;
-      if (im.srcSmall) {
-        img.srcset = im.srcSmall + " 800w, " + im.src + " " + im.width + "w";
-        img.sizes = "(min-width: 900px) 520px, 100vw";
-      }
-      img.alt = im.alt;
-      img.width = im.width;
-      img.height = im.height;
-      outer.appendChild(img);
-    }
-    return outer;
+    return box;
   }
 
   function renderQuestion() {
@@ -253,6 +282,7 @@
     data.verzekerbaar = r.insurable ? "ja" : "nee";
     data.nis2 = r.nis2 || "geen";
     steps.forEach(function (s) { data[s.id] = labelOf(s, state.answers[s.id]); });
+    data.matches = matchesNow().map(function (m) { return m.provider.name + " (" + m.pct + "%)"; }).join("; ");
     data.pagina = location.href;
     return data;
   }
@@ -289,7 +319,10 @@
     var check = el("input");
     check.type = "checkbox"; check.required = true;
     consent.appendChild(check);
-    consent.appendChild(el("span", null, L.consent));
+    var ctext = el("span");
+    ctext.appendChild(el("strong", null, L.consent));
+    if (L.consentNote) { ctext.appendChild(el("small", null, L.consentNote)); }
+    consent.appendChild(ctext);
     form.appendChild(consent);
 
     var submit = el("button", "btn primary big", L.submit);
@@ -329,6 +362,45 @@
     };
 
     box.appendChild(form);
+    return box;
+  }
+
+  function matchesNow() {
+    return window.MATCH_DATA ? match(state.answers, cfg, window.MATCH_DATA) : [];
+  }
+
+  function renderMatches() {
+    var list = matchesNow();
+    if (!list.length) { return null; }
+    var T = cfg.labels;
+    var box = el("section", "matches");
+    box.appendChild(el("h3", null, T.matchEyebrow));
+    box.appendChild(el("p", "matches-title", T.matchTitle));
+    box.appendChild(el("p", "matches-intro", T.matchIntro));
+    list.forEach(function (m, idx) {
+      var card = el("article", "match");
+      var top = el("div", "match-top");
+      top.appendChild(el("span", "match-pct", T.matchPct.replace("{n}", m.pct)));
+      top.appendChild(el("span", "match-meta", m.provider.region));
+      card.appendChild(top);
+      card.appendChild(el("h4", null, T.matchSpecialist.replace("{n}", idx + 1) + ": " + m.provider.label));
+      var ul = el("ul");
+      function line(cls, text) { ul.appendChild(el("li", cls, text)); }
+      if (m.noGaps) { line(null, T.matchAll); }
+      if (m.covered.length) { line(null, T.matchCovered.replace("{items}", m.covered.join(", "))); }
+      if (m.partly.length) { line("partly", T.matchPartly.replace("{items}", m.partly.join(", "))); }
+      if (m.missing.length) { line("miss", T.matchMissing.replace("{items}", m.missing.join(", "))); }
+      if (m.levelFit) { line(null, T.matchLevel); }
+      if (m.sectorFit) { line(null, T.matchSector); }
+      if (m.vlaioFit) { line(null, T.matchVlaio); }
+      if (m.kindFit) { line(null, m.provider.kind === "it" ? T.matchKindIt : T.matchKindAdvies); }
+      card.appendChild(ul);
+      box.appendChild(card);
+    });
+    var how = el("details", "match-how");
+    how.appendChild(el("summary", null, T.matchHow));
+    how.appendChild(el("p", null, T.matchHowText));
+    box.appendChild(how);
     return box;
   }
 
@@ -386,6 +458,9 @@
       notes.appendChild(n2);
     }
     box.appendChild(notes);
+
+    var matchBox = renderMatches();
+    if (matchBox) { box.appendChild(matchBox); }
 
     var leadOn = cfg.lead && cfg.lead.endpoint;
     var leadBox = leadOn ? renderLead(r) : null;
