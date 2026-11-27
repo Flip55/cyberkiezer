@@ -292,7 +292,15 @@
     var box = el("section", "lead");
     box.id = "lead";
     box.appendChild(el("h3", null, L.title));
-    box.appendChild(el("p", null, L.intro));
+    var found = matchesNow();
+    box.appendChild(el("p", null, found.length
+      ? L.introMatches.replace("{n}", found.length).replace("{pct}", found[0].pct)
+      : L.intro));
+    if (L.points) {
+      var pts = el("ul", "lead-points");
+      L.points.forEach(function (t) { pts.appendChild(el("li", null, t)); });
+      box.appendChild(pts);
+    }
 
     var form = el("form", "lead-form");
     var inputs = {};
@@ -419,6 +427,10 @@
     head.appendChild(right);
     box.appendChild(head);
 
+    var leadOn = cfg.lead && cfg.lead.endpoint;
+    var leadBox = leadOn ? renderLead(r) : null;
+    if (leadBox) { box.appendChild(leadBox); }
+
     var dom = el("section", "result-block");
     dom.appendChild(el("h3", null, cfg.labels.domainsTitle));
     r.domains.forEach(function (d) {
@@ -462,9 +474,6 @@
     var matchBox = renderMatches();
     if (matchBox) { box.appendChild(matchBox); }
 
-    var leadOn = cfg.lead && cfg.lead.endpoint;
-    var leadBox = leadOn ? renderLead(r) : null;
-
     var actions = el("div", "result-actions");
     var cta = el("a", "btn primary big", cfg.cta.label);
     if (leadOn) {
@@ -484,7 +493,6 @@
     again.onclick = function () { reset(); go(-1); };
     actions.appendChild(again);
     box.appendChild(actions);
-    if (leadBox) { box.appendChild(leadBox); }
 
     box.appendChild(el("p", "disclaimer", cfg.labels.disclaimer));
     return box;

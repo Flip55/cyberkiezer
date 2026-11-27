@@ -26,7 +26,7 @@ window.QUIZ_CONFIG = {
     restart: "Opnieuw beginnen",
     resultTitle: "Jouw cyberscore",
     outOf: "op 10",
-    domainsTitle: "Je score per domein",
+    domainsTitle: "Je resultaat in detail: score per domein",
     prioritiesTitle: "Jouw 3 prioriteiten",
     noPriorities: "Je haalde op elke vraag de volle punten. Blijf testen, trainen en bijwerken.",
     insuranceTitle: "Verzekerbaarheid",
@@ -51,7 +51,7 @@ window.QUIZ_CONFIG = {
   },
 
   cta: {
-    label: "Vraag een gratis kennismaking aan",
+    label: "Laat deze specialisten contact opnemen",
     /* Wordt gebruikt zolang lead.endpoint leeg is. */
     url: "it-dienstverleners.html"
   },
@@ -67,8 +67,10 @@ window.QUIZ_CONFIG = {
     /* Google Apps Script aanvaardt geen "application/json" vanuit de browser, wel platte tekst met JSON erin. */
     contentType: "text/plain;charset=utf-8",
     extraFields: {},
-    title: "Vraag een gratis kennismaking aan",
-    intro: "Laat je gegevens achter. We bezorgen je aanvraag en je resultaat aan maximaal drie specialisten die bij je profiel passen. Zij nemen contact met je op.",
+    title: "Laat de best passende specialisten contact met je opnemen",
+    intro: "Laat je gegevens achter. Maximaal drie specialisten die bij je profiel passen nemen contact met je op.",
+    introMatches: "We vonden {n} specialisten die bij je profiel passen, de beste met een match van {pct}%. Laat je gegevens achter en zij nemen contact met je op om je verbeterpunten aan te pakken.",
+    points: ["Gratis en vrijblijvend", "Maximaal drie specialisten", "Zij krijgen je resultaat, zodat je niets opnieuw moet uitleggen"],
     fields: {
       name: "Naam",
       email: "E-mailadres",
